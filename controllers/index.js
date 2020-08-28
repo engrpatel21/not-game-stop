@@ -3,5 +3,5 @@ module.exports = {
 }
 
 function index(req, res) {
-    res.redirect('/items')
+    res.render('home/index')
 }
