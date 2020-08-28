@@ -1,5 +1,5 @@
 const Item = require('../models/item')
-const { model } = require('../models/user')
+
 
 module.exports = {
     index
