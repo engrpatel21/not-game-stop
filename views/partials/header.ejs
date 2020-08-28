@@ -28,7 +28,11 @@
             <a class="nav-link" href="/items">Buy<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Sell</a>
+            <% if(user){ %>
+              <a class="nav-link" href="#">Sell</a>
+            <% } else {%> 
+              <a class="nav-link" href="/auth/google">Sell</a>
+            <% } %>  
           </li>
           <li class="nav-item">
             <% if (user) { %>
