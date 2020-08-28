@@ -6,5 +6,5 @@ module.exports = {
 }
 
 function index(req, res) {
-    res.render('items/index')
+    res.render('items/index', {user: req.user? req.user : null})
 }
