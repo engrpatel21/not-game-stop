@@ -21,7 +21,7 @@ const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const itemRouter = require('./routes/items');
 const reviewRouter = require('./routes/items')
-
+const indexRouter = require('./routes/index')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -46,6 +46,7 @@ app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/', itemRouter)
 app.use('/', reviewRouter)
+app.use('/', indexRouter)
 
 // invalid request, send 404 page
 app.use(function(req, res) {
