@@ -4,7 +4,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
-
+const methodOverride = require('method-override')
 
 // load the env vars
 require('dotenv').config();
@@ -19,6 +19,8 @@ require('./config/passport');
 // require our routes
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const itemRouter = require('./routes/items');
+const reviewRouter = require('./routes/items')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,13 +36,16 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(methodOverride('_method'))
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 // mount all routes with appropriate base paths
 app.use('/', usersRouter);
-app.use('/auth', authRouter)
+app.use('/auth', authRouter);
+app.use('/', itemRouter)
+app.use('/', reviewRouter)
 
 // invalid request, send 404 page
 app.use(function(req, res) {
