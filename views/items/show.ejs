@@ -5,7 +5,7 @@
 <%= user.name %>
 
 <div class="form-container"> 
-    <form class="needs-validation text-center" method="POST" action="/items" novalidate>
+    <form class="needs-validation text-center" method="POST" action="/items/new/game" novalidate>
         <div class="form-row">
             <label for="validationCustom01">Name of Game</label>
             <input type="text" class="form-control" id="validationCustom01" value="<%= game.name %>" required name="itemName">
@@ -48,7 +48,7 @@
             <input type="text" name="isSeller" value="true" hidden>
             <input type="text" name="itemType" value="game" hidden>
         </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
+        <button class="btn btn-primary" type="submit">Sell Game</button>
     </form>
   </div>
   <script>

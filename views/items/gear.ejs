@@ -1,5 +1,82 @@
 <%- include('../partials/header') %> 
 
-<h1>new page</h1>
+<div class="form-container text-center">
+    <form class="needs-validation" method="POST" action="/items/new/gear" novalidate>
+        <div class="form-row">
+            <label for="validationCustom01">Gear Name</label>
+            <input type="text" class="form-control" id="validationCustom01" required name="itemName">
+            <div class="valid-feedback">
+            Looks good!
+            </div>
+            <label for="validationCustom02">Price</label>
+            <input type="text" class="form-control" id="validationCustom02" required pattern="\d+\.?\d{0,2}" name="price">
+            <div class="valid-feedback">
+            Looks good!
+            </div>
+        </div>
+        <div class="form-row">
+            
+            <label for="validationCustom04">Item Platform</label>
+            <select class="custom-select" id="validationCustom04" required name="platform">
+              <option selected  value="Playstation">Playstation</option>
+              <option value="Playstation 2">Playstation 2</option>
+              <option value="Playstation 3">Playstation 3</option>
+              <option value="Playstation 4">Playstation 4</option>
+              <option value="Xbox">Xbox</option>
+              <option value="Xbox 360">Xbox 360</option>
+              <option value="Xbox One">Xbox One</option>
+              <option value="PC">PC</option>
+              <option value="Nintendo Wii">Ninetndo Wii</option>
+              <option value="Switch">Nintendo Switch</option>
+            </select>
+          
+        </div>
+        <div class="form-row">
+            <label for="validationCustom04">Item Type</label>
+            <select class="custom-select" id="validationCustom04" required name="itemType">
+              <option selected value="controller">Controller</option>
+              <option value="memory card">Memory Card</option>
+              <option value="power cable">Power Cable</option>
+              <option value="console">Console</option>
+              <option value="mouse">Mouse</option>
+              <option value="keyboard">Keyboard</option>
+              <option value="monitor">Monitor</option>
+            </select>
+          
+         
+            <label for="itemCondition">Item Condition</label>
+            <select class="form-control form-control-sm" name="itemCondition">
+                <option value="new">Like New</option>
+                <option value="good" selected>Good</option>
+                <option value="poor">Poor</option>
+            </select>
+           
+        </div>
+        <input type="text" name="isSeller" value="true" hidden>
+        <button class="btn btn-primary" type="submit">Sell Gear</button>
+        
+      </form>
+      
+      <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+      </script>
+</div>
 
 <%- include('../partials/footer') %>
