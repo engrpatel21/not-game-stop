@@ -15,7 +15,10 @@ function createGame(req, res) {
     turnToBoolean(req.body.isSeller)
     turnToBoolean(req.body.isGame)
     User.updateOne({ googleId: req.user.googleId }, { isSeller: req.body.isSeller })
-    res.redirect('/items')
+        .then((err, user) => {
+            res.redirect('/items')
+    })
+    
 }
 
 function show(req, res) {
