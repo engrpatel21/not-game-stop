@@ -1,13 +1,22 @@
 <%- include('../partials/header') %>
-    <h1>What do you want to buy</h1>
-    <% if(user) {%> 
-    <h1><%= user.isSeller %> </h1>
-    <h1><%= user.googleId %> </h1>
-    <h1><%= user._id %> </h1>
-    <% } %> 
-
-    <% if(items) {%> 
-        <%= items %> 
-    <% } %> 
-
+  
+<section id="items-container">
+    <% items.forEach(i =>{  %>
+        <div> <div class="card" style="width: 18rem;">
+            <img src="" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">Released: </p>
+              <p>Platforms:</p>
+             
+                <p class="card-text"></p>
+              
+              <p class="card-text">Metacritic Score: </p>
+              <!-- This is a button that we'll use to navigate to the game's 'show' page.  We still need to fill in the route -->
+              <a href="" class="btn btn-primary">Select Game</a>
+            </div>
+          </div> </div>
+    <% }) %>  
+</section>
+    
 <%- include('../partials/footer') %>
