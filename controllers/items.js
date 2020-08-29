@@ -30,7 +30,6 @@ function form(req, res) {
     .get(`https://api.rawg.io/api/games/${req.params.slug}`)
     .then((response) => {
         if (response) {
-            console.log(response.data)
             res.render("items/form", {
               title: "Sell Game Form",
               user: req.user,
@@ -41,7 +40,6 @@ function form(req, res) {
 }
 
 function search(req, res) {
-    console.log('here')
     axios
         .get(`https://api.rawg.io/api/games?page_size=10&search=${req.body.query}`)
         .then((response) => {
@@ -73,7 +71,6 @@ function index(req, res) {
     Item.find({}).exec((err, items) => {
         
         if (req.user) {
-            console.log(items)
             User.findOne({ googleId: req.user.googleId })
                 .then(user => {
                     res.render('items/index', { title: 'Buy', user, items })
