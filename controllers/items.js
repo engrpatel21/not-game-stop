@@ -5,6 +5,7 @@ const User = require('../models/user')
 module.exports = {
     index,
     newGame,
+    newGear,
     search,
     show,
     createGame,
@@ -60,9 +61,16 @@ function search(req, res) {
 
 function newGame(req, res){
     res.render('items/games', {
-        title: 'New Game',
+        title: 'Sell Games',
         user: req.user ? req.user : null,
         results: null
+    })
+}
+
+function newGear(req, res) {
+    res.render('items/gear', {
+        title: 'Sell Gear',
+        user: req.user ? req.user: null,
     })
 }
 
