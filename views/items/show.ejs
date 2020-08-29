@@ -1,0 +1,72 @@
+<%- include('../partials/header') %>
+
+<h1>game detail</h1>
+
+<%= user.name %>
+<div class="form-container"> 
+    <form class="needs-validation text-center" method="POST" action="/items" novalidate>
+        <div class="form-row">
+            <label for="validationCustom01">Name of Game</label>
+            <input type="text" class="form-control" id="validationCustom01" value="<%= game.name %>" required name="itemName">
+            <div class="valid-feedback">
+            Looks good!
+            </div>
+            <label for="validationCustom02">Price</label>
+            <input type="text" class="form-control" id="validationCustom02" required pattern="\d+\.?\d{0,2}">
+            <div class="valid-feedback">
+            Looks good!
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="itemCondition">Platform</label>
+            <select class="form-control form-control-sm" name="platform">
+                <% if(game.platforms.length === 1){%>
+                    <option value="<%= game.platforms[0].platform.name %>"><%= game.platforms[0].platform.name %></option>
+                <% }else{ %>
+                    <option value="<%= game.platforms[0].platform.name %>"><%= game.platforms[0].platform.name %></option>
+                    <% game.platforms.forEach((p,i) => { %> 
+                        <% if(i > 1) {%>
+                            <option value="<%= game.platforms[i].platform.name %>"><%= game.platforms[i].platform.name %></option>                           
+                        <% } %>  
+                    <% }) %> 
+                <% } %> 
+              
+            </select>
+        </div>
+        <div class="form-row">
+            <label for="itemCondition">Item Condition</label>
+            <select class="form-control form-control-sm" name="itemCondition">
+                <option value="new">Like New</option>
+                <option value="good" selected>Good</option>
+                <option value="poor">Poor</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <input type="text" class="form-control" id="validationCustom03" required name="isGame" hidden value='true'>
+            <input type="text" name="picutre" value="<%= game.background_image %>" hidden>
+            <input type="text" name="isSeller" value="true" hidden>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+  </div>
+  <script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+  </script>
+<%- include('../partials/footer') %> 

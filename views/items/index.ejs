@@ -1,3 +1,7 @@
 <%- include('../partials/header') %>
     <h1>What do you want to buy</h1>
+    <% if(user) {%> 
+    <h1><%= user.isSeller %> </h1>
+    <h1><%= user.googleId %> </h1>
+    <% } %> 
 <%- include('../partials/footer') %>

@@ -1,0 +1,32 @@
+<%- include('../partials/header') %>
+    <h4>Seach for a game to Sell:</h4>
+    <div>
+    <form action="/items/new/game/search" class="form-inline" method="POST">
+        <div class="form-group mx-sm-3 mb-2">
+          <input type="text" class="form-control mx-sm-1 mb-2" name="query" placeholder="Search for Game">
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+      </form>
+    </div>
+    <div id="container">
+      <% if (results) { %>
+        <% results.forEach(game => { %>
+          
+          <div class="card" style="width: 18rem;">
+            <img src="<%= game.background_image %>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%= game.name %> </h5>
+              <p class="card-text">Released: <%= game.released %></p>
+              <p>Platforms:</p>
+              <% game.platforms.forEach(p => { %>
+                <p class="card-text"><%= p.platform.name %></p>
+              <% }) %>
+              <p class="card-text">Metacritic Score: <%= game.metacritic ? game.metacritic : 'N/A' %></p>
+              <!-- This is a button that we'll use to navigate to the game's 'show' page.  We still need to fill in the route -->
+              <a href="/items/new/game/<%= game.slug %>" class="btn btn-primary">Select Game</a>
+            </div>
+          </div>
+        
+        <% }) %>
+      <% } %> 
+      </div>
+<%- include('../partials/footer') %>
