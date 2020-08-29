@@ -8,16 +8,11 @@ module.exports = {
     newGear,
     search,
     show,
-    createGame,
-
+    createItem
 }
 
-function createGame(req, res) {
+function createItem(req, res) {
     
-    // User.updateOne({ googleId: req.user.googleId }, { isSeller: req.body.isSeller })
-    //     .then((err, user) => {
-    //         res.redirect('/items')
-    // })
     req.body.seller = req.user._id
     req.user.isSeller = convertToBoolean(req.body.isSeller)
     req.user.save().then(() => {
