@@ -67,8 +67,10 @@ function newGame(req, res){
 }
 
 function index(req, res) {
-    Item.find({}).then((err, items) => {
+    Item.find({}).exec((err, items) => {
+        
         if (req.user) {
+            console.log(items)
             User.findOne({ googleId: req.user.googleId })
                 .then(user => {
                     res.render('items/index', { title: 'Buy', user, items })
@@ -77,6 +79,8 @@ function index(req, res) {
             res.render('items/index', {title: 'Buy', user: req.user? req.user: null, items})
         }
     })
+      
+    
  
 }
 
