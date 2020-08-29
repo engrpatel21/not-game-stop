@@ -19,8 +19,9 @@ function createGame(req, res) {
     // })
    
     req.user.isSeller = convertToBoolean(req.body.isSeller)
-    req.body.isGame = convertToBoolean(req.body.isGame)
+    req.user.item.push(req.body)
     req.user.save().then(() => {
+
         res.redirect('/items')
     })
     
