@@ -19,7 +19,6 @@ function createGame(req, res) {
     // })
    
     req.user.isSeller = convertToBoolean(req.body.isSeller)
-    req.user.item.push(req.body)
     req.user.save().then(() => {
 
         res.redirect('/items')
