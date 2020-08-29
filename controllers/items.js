@@ -17,11 +17,14 @@ function createGame(req, res) {
     //     .then((err, user) => {
     //         res.redirect('/items')
     // })
-   
+    req.body.seller = req.user._id
     req.user.isSeller = convertToBoolean(req.body.isSeller)
     req.user.save().then(() => {
-
-        res.redirect('/items')
+        Item.create(req.body)
+            .then(() => {
+                res.redirect('/items')
+        })
+        
     })
     
 }
@@ -64,17 +67,21 @@ function newGame(req, res){
 }
 
 function index(req, res) {
-    if (req.user) {
-        User.findOne({ googleId: req.user.googleId })
-            .then(user => {
-                res.render('items/index', { title: 'Buy', user })
-            })
-    } else {
-        res.render('items/index', {title: 'Buy', user: req.user? req.user: null})
-    }
+    Item.find({}).then((err, items) => {
+        if (req.user) {
+            User.findOne({ googleId: req.user.googleId })
+                .then(user => {
+                    res.render('items/index', { title: 'Buy', user, items })
+                })
+        } else {
+            res.render('items/index', {title: 'Buy', user: req.user? req.user: null, items})
+        }
+    })
+ 
 }
 
 function convertToBoolean(field) {
     if (field === 'true') return field = true
     if (field === 'false') return field = false
 }
+
