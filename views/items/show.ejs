@@ -3,6 +3,7 @@
 <h1>game detail</h1>
 
 <%= user.name %>
+
 <div class="form-container"> 
     <form class="needs-validation text-center" method="POST" action="/items" novalidate>
         <div class="form-row">
@@ -43,9 +44,9 @@
         </div>
         <div class="form-row">
             <input type="text" class="form-control" id="validationCustom03" required name="isGame" hidden value='true'>
-            <input type="text" name="picutre" value="<%= game.background_image %>" hidden>
+            <input type="text" name="picture" value="<%= game.background_image %> " hidden>
             <input type="text" name="isSeller" value="true" hidden>
-            <input type="text" name="itemType" value="game">
+            <input type="text" name="itemType" value="game" hidden>
         </div>
         <button class="btn btn-primary" type="submit">Submit form</button>
     </form>
