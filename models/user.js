@@ -1,12 +1,12 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema
 
-
-var userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   name: String,
   email: String,
   avatar: String,
   googleId: String,
-  isSeller: Boolean,
+  isSeller: Boolean
   
 }, {
   timestamps: true

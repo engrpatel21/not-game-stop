@@ -8,7 +8,7 @@ const itemSchema = new mongoose.Schema({
     price: { type: String, required: true },
     itemCondition: {type: String, required: true},
     picture: { type: String, default: 'Pic Not Found' },
-    seller:  [{ type: Schema.Types.ObjectId, ref: 'User'}]
+    seller:  { type: Schema.Types.ObjectId, ref: 'User'}
   }, {
     timestamps: true
 })

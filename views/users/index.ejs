@@ -5,10 +5,19 @@
   isSeller: <%= user.isSeller %> 
 </h3>
 <div> user id: <%= user._id %> </div>
-<div>item seller id: <%= items[0]._id %> </div>
+<div> <%= user %>  </div>
+<div>item seller id: <%= items[3].seller._id %> </div>
 <h4>Items for Sale:</h4>
 <% if(user.isSeller) {%>
-  <% items.forEach() %> 
+  <% items.forEach(i =>{ %>
+    <% console.log(i.seller._id.toString()) %> 
+    <% console.log(user._id.toString()) %> 
+    <% console.log(i.seller._id.equals(user._id)) %> 
+    <% if(i.seller._id.equals(user._id)) {%>
+      <% console.log('im getting here') %> 
+      <h1><%= i.itemName %></h1> 
+    <% } %>  
+  <% }) %>  
 <% } %>  
 
 <%- include('../partials/footer') %> 

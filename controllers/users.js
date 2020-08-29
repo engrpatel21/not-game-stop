@@ -6,7 +6,9 @@ module.exports = {
 };
 
 function index(req, res) {
-  Item.find({}).exec((err, items) => {
+  Item.find({})
+    .populate('seller')
+    .exec((err, items) => {
 
     res.render('users/index', {
       title: 'Profile',
