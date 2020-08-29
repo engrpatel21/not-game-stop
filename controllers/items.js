@@ -12,11 +12,23 @@ module.exports = {
 }
 
 function createGame(req, res) {
-    turnToBoolean(req.body.isSeller)
-    turnToBoolean(req.body.isGame)
-    User.updateOne({ googleId: req.user.googleId }, { isSeller: req.body.isSeller })
-        .then((err, user) => {
-            res.redirect('/items')
+    if (req.body.isSeller === 'true') {
+        req.body.isSeller = true
+    } else {
+        req.body.iSeller = false
+    }
+    if (req.body.isGame === 'true') {
+        req.body.isGame = true
+    } else {
+        req.body.isGame = false
+    }
+    // User.updateOne({ googleId: req.user.googleId }, { isSeller: req.body.isSeller })
+    //     .then((err, user) => {
+    //         res.redirect('/items')
+    // })
+    req.user.isSeller = req.body.isSeller
+    req.user.save().then(() => {
+        res.redirect('/items')
     })
     
 }
@@ -69,7 +81,3 @@ function index(req, res) {
     }
 }
 
-function turnToBoolean(field) {
-    if (field === 'true') field = true
-    else field = false
-}
