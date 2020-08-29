@@ -7,7 +7,7 @@ module.exports = {
     newGame,
     newGear,
     search,
-    show,
+    form,
     createItem
 }
 
@@ -25,14 +25,14 @@ function createItem(req, res) {
     
 }
 
-function show(req, res) {
+function form(req, res) {
     axios
     .get(`https://api.rawg.io/api/games/${req.params.slug}`)
     .then((response) => {
         if (response) {
             console.log(response.data)
-            res.render("items/show", {
-              title: "Game Details",
+            res.render("items/form", {
+              title: "Sell Game Form",
               user: req.user,
               game: response.data,
             });
