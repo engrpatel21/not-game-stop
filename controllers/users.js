@@ -7,6 +7,10 @@ module.exports = {
 function index(req, res) {
   User.find({})
   .then(users => {
-    res.render('users/index', { user: req.user, users })
+    res.render('users/index', {
+      title: 'Profile',
+      user: req.user,
+      users
+    })
   })
 }
