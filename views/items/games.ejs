@@ -11,6 +11,7 @@
       <% if (results) { %>
         <% results.forEach(game => { %>
           
+        <div class="item1">
           <div class="card" style="width: 18rem;">
             <img src="<%= game.background_image %>" class="card-img-top" alt="...">
             <div class="card-body">
@@ -25,7 +26,7 @@
               <a href="/items/new/game/<%= game.slug %>" class="btn btn-primary">Select Game</a>
             </div>
           </div>
-        
+        </div>
         <% }) %>
       <% } %> 
       </div>

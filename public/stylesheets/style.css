@@ -1,5 +1,26 @@
+html {
+  box-sizing: border-box
+}
 
+/* The Universal Selector */
+*, /* All elements*/
+*::before, /* All ::before pseudo-elements */
+*::after { /* All ::after pseudo-elements */
+  /* height & width will now include border & padding by default
+     but can be over-ridden as needed */
+  box-sizing: inherit;
+}
 
+body {
+  background-color: white;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.item1 {
+  align-self: center;
+  justify-self: center;
+}
 
 #container {
   display: grid;
@@ -13,6 +34,10 @@
   grid-template-columns: repeat(5, 1fr);
   margin-top: 30px;
   width: 100%;
+}
+
+.card-container{
+  justify-items: center;
 }
 
 .form-container{
