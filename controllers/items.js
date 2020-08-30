@@ -23,7 +23,7 @@ function show(req, res) {
             .populate('createdBy')
             .populate('createdFor')
             .exec((err, reviews) => {
-                SellerReview.find({})
+                SellerReview.find({createdFor: {_id: item.seller._id}})
                     .populate('createdBy')
                     .populate('createdFor')
                     .exec((err, sellerReviews) => {

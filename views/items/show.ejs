@@ -20,8 +20,10 @@
      <h5><%= r.review %> by <%= r.createdBy.name %> </h5>
   <% } %>  
 <% }) %>  
-<h4>Seller Reviews:</h4>
-<%= sellerReviews %> 
+<h3>Seller Reviews:</h3>
+<% sellerReviews.forEach(s =>{%>
+    <h4><%= s.review %> by <%= s.createdBy.name %>  </h4> 
+<% }) %>   
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">
