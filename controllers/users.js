@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const Item = require('../models/item');
-const Review = require('../models/review')
+const SellerReview = require('../models/review')
 
 module.exports = {
   index,
@@ -14,7 +14,7 @@ function show(req,res){
     Item.find({})
       .populate('seller')
       .exec((err, items) => {
-        Review.find({})
+        SellerReview.find({})
           .populate('createdBy')
           .populate('createdFor')
           .exec((err, reviews) => {
