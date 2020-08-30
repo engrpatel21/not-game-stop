@@ -25,7 +25,7 @@ function createCart(req, res) {
         .then(user => {
             user.cart.push(req.body)
             user.save(err => {
-                res.redirect(`/items`)   
+                res.redirect(`/items/${req.body.itemId}`)   
             })
     })
     
