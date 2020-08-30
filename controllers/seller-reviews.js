@@ -2,7 +2,7 @@ const SellerReview = require('../models/seller-review')
 
 module.exports = {
     createSellerReview,
-    createGameReview
+  
 }
 
 function createSellerReview(req, res) {
@@ -15,12 +15,3 @@ function createSellerReview(req, res) {
     })
 }
 
-function createGameReview(req, res) {
-    req.body.createdBy = req.user._id
-    req.body.gameId = req.params.id
-    console.log('i am here items', req.params)
-    Review.create(req.body)
-        .then(() => {
-        res.redirect(`/items/${req.params.id}`)
-    })
-}

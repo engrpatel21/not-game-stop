@@ -16,10 +16,7 @@
 <% } %>  
 <h4>Game Reviews:</h4>
 <% console.log() %> 
-<% for(let key in reviews){ %>
-    <li><%= reviews[key].gameId%></li> 
-    <% console.log(reviews[key].gameId._id) %> 
-<% } %>  
+<%= reviews.createdFor %>  
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">
