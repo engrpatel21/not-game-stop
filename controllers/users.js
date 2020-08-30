@@ -14,12 +14,19 @@ function show(req,res){
     Item.find({})
       .populate('seller')
       .exec((err, items) => {
-        res.render('users/show', {
-          title: 'User Profile',
-          user: req.user ? req.user : null,
-          seller,
-          items
-        })
+        Review.find({})
+          .populate('createdBy')
+          .populate('createdFor')
+          .exec((err, reviews) => {
+            res.render('users/show', {
+              title: 'User Profile',
+              user: req.user ? req.user : null,
+              seller,
+              items,
+              reviews
+            })
+          })       
+     
       })
   })
 }
