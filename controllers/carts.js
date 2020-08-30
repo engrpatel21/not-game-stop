@@ -1,7 +1,8 @@
 const Cart = require('../models/cart')
 
 module.exports = {
-    show
+    show,
+    createCart
 }
 
 function show(req, res) {
@@ -9,4 +10,8 @@ function show(req, res) {
         title: 'Shopping Cart',
         user: req.user ? req.user : null
     })
+}
+
+function createCart(req, res) {
+    
 }
