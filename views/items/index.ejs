@@ -1,22 +1,22 @@
 <%- include('../partials/header') %>
-  
 <section id="items-container">
     <% items.forEach(i =>{  %>
         <div class="text-center item1"> 
             <div class="card" style="width: 18rem;">
-            <img src="" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text">Released: </p>
-              <p>Platforms:</p>
-             
-                <p class="card-text"></p>
-              
-              <p class="card-text">Metacritic Score: </p>
-              <!-- This is a button that we'll use to navigate to the game's 'show' page.  We still need to fill in the route -->
-              <a href="" class="btn btn-primary">Select Game</a>
+                <img src="<%= i.picture %> " class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= i.itemName%> </h5>
+                  <p class="card-text"><%= i.itemType[0].toUpperCase() + i.itemType.slice(1,) %><br><%= i.platform %></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Condition: <%= i.itemCondition[0].toUpperCase() + i.itemType.slice(1,) %> </li>
+                  <li class="list-group-item">Price: $<%= i.price %> </li>
+                  <li class="list-group-item">Seller: <%= i.seller.name %> </li>
+                </ul>
+                <div class="card-body">
+                  <a href="" class="card-link">Details</a>
+                </div>
             </div>
-          </div> 
         </div>
     <% }) %>  
 </section>

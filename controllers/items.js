@@ -68,7 +68,9 @@ function newGear(req, res) {
 }
 
 function index(req, res) {
-    Item.find({}).exec((err, items) => {
+    Item.find({})
+        .populate('seller')
+        .exec((err, items) => {
         
         if (req.user) {
             User.findOne({ googleId: req.user.googleId })
