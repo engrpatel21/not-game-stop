@@ -15,8 +15,9 @@
     <h4>Seller: <a href="/users/<%= item.seller._id %>"><%= item.seller.name %></a></h4>
 <% } %>  
 <h4>Game Reviews:</h4>
-<% console.log() %> 
-<%= reviews.createdFor %>  
+<% reviews.forEach(r => {%>
+  <li><%= r.createdFor._id %> </li> 
+<% }) %>  
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">
