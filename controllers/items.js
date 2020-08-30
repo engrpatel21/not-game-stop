@@ -8,7 +8,15 @@ module.exports = {
     newGear,
     search,
     form,
-    createItem
+    createItem,
+    show
+}
+
+function show(req, res) {
+    res.render('items/show', {
+        title: 'Item Details',
+        user: req.user ? req.user : null
+    })
 }
 
 function createItem(req, res) {

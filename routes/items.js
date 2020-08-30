@@ -6,8 +6,9 @@ router.get('/items', itemsCtrl.index)
 router.get('/items/new/game', isLoggedIn, itemsCtrl.newGame)
 router.get('/items/new/gear', isLoggedIn, itemsCtrl.newGear)
 router.get('/items/new/game/:slug', isLoggedIn, itemsCtrl.form)
-router.post('/items/new/game', itemsCtrl.createItem)
-router.post('/items/new/gear', itemsCtrl.createItem)
+router.get('/items/:id', itemsCtrl.show)
+router.post('/items/new/game', isLoggedIn, itemsCtrl.createItem)
+router.post('/items/new/gear', isLoggedIn, itemsCtrl.createItem)
 router.post('/items/new/game/search', isLoggedIn, itemsCtrl.search)
 
 
