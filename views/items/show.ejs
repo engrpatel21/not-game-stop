@@ -15,6 +15,7 @@
     <h4>Seller: <a href="/users/<%= item.seller._id %>"><%= item.seller.name %></a></h4>
 <% } %>  
 <h4>Game Reviews:</h4>
+<%= reviews %> 
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">
