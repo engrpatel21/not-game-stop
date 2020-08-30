@@ -13,9 +13,15 @@ module.exports = {
 }
 
 function show(req, res) {
-    res.render('items/show', {
-        title: 'Item Details',
-        user: req.user ? req.user : null
+    Item.findById(req.params.id)
+        .populate('seller')
+        .exec((err, item) => {
+            res.render('items/show', {
+                title: 'Item Details',
+                user: req.user ? req.user : null,
+                item
+        })
+   
     })
 }
 
