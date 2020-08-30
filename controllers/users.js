@@ -32,14 +32,21 @@ function show(req,res){
 }
 
 function index(req, res) {
+
   Item.find({})
     .populate('seller')
     .exec((err, items) => {
-
-    res.render('users/index', {
-      title: 'Profile',
-      user: req.user ? req.user : null,
-      items
+      SellerReview.find({createdFor: {_id: req.user._id}})
+        .populate('createdFor')
+        .populate('createdBy')
+        .exec((err, reviews) => {
+          res.render('users/index', {
+            title: 'Profile',
+            user: req.user ? req.user : null,
+            items,
+            reviews
+        })
+    
     })
     
 })

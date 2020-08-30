@@ -2,6 +2,8 @@ const Item = require('../models/item')
 const axios = require('axios')
 const User = require('../models/user')
 const ItemReview = require('../models/item-review')
+const SellerReview = require('../models/seller-review')
+const sellerReview = require('../models/seller-review')
 
 module.exports = {
     index,
@@ -20,13 +22,19 @@ function show(req, res) {
         ItemReview.find({})
             .populate('createdBy')
             .populate('createdFor')
-            .populate('gameId')
             .exec((err, reviews) => {
-                res.render('items/show', {
-                    title: 'Item Details',
-                    user: req.user ? req.user : null,
-                    item,
-                    reviews
+                SellerReview.find({})
+                    .populate('createdBy')
+                    .populate('createdFor')
+                    .exec((err, sellerReviews) => {
+                        res.render('items/show', {
+                            title: 'Item Details',
+                            user: req.user ? req.user : null,
+                            item,
+                            reviews,
+                            sellerReviews
+                    })
+               
             })
            
         })

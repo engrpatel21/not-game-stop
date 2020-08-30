@@ -16,8 +16,12 @@
 <% } %>  
 <h4>Game Reviews:</h4>
 <% reviews.forEach(r => {%>
-  <li><%= r.createdFor._id %> </li> 
+  <% if(r.createdFor._id.equals(item._id)) {%>
+     <h5><%= r.review %> by <%= r.createdBy.name %> </h5>
+  <% } %>  
 <% }) %>  
+<h4>Seller Reviews:</h4>
+<%= sellerReviews %> 
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">

@@ -3,13 +3,19 @@
 <h3>
   Name: <%= user.name %> 
 </h3>
-<h4>Items for Sale:</h4>
+
 <% if(user.isSeller) {%>
+  <h3>Items for Sale:</h3>
   <% items.forEach(i =>{ %>
     <% if(i.seller._id.equals(user._id)) {%>
-      <h1><%= i.itemName %></h1> 
+      <h4><%= i.itemName %></h4> 
     <% } %>  
+  <% }) %> 
+  <h3>Seller Reviews:</h3> 
+  <% reviews.forEach(r => {%>
+    <h4><%= r.review %> by <%= r.createdBy.name %> </h4>
   <% }) %>  
 <% } %>  
+
 
 <%- include('../partials/footer') %> 
