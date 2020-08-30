@@ -17,7 +17,7 @@ function createSellerReview(req, res) {
 
 function createGameReview(req, res) {
     req.body.createdBy = req.user._id
-    req.body.createdFor = req.params.id
+    req.body.gameId = req.params.id
     console.log('i am here items', req.params)
     Review.create(req.body)
         .then(() => {

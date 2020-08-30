@@ -19,7 +19,7 @@ function show(req, res) {
         .exec((err, item) => {
         Review.find({})
             .populate('createdBy')
-            .populate('createdFor')
+            .populate('gameId')
             .exec((err, reviews) => {
                 res.render('items/show', {
                     title: 'Item Details',
