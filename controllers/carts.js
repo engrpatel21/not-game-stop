@@ -3,14 +3,25 @@ const User = require('../models/user')
 
 module.exports = {
     show,
-    createCart
+    createCart,
+    deleteItem
+}
+
+function deleteItem(req, res) {
+    User.findById(req.user._id)
+        .then(user => {
+            //console.log(user)
+            console.log('delete', req.user._id)
+            res.redirect(`/carts/${req.user_id}`)
+    })
 }
 
 function show(req, res) {
-    User.findById(req.params.id)
+ 
+    User.findById(req.user._id)
         .populate('cart.itemId')
         .exec( (err, cart)  => {
-                    console.log(cart)
+                  
                     res.render('carts/show', {
                         title: 'Shopping Cart',
                         user: req.user ? req.user : null,
