@@ -5,10 +5,14 @@
 <h4>Price <%= item.price %> </h4>
 <h4>Platform: <%= item.platform %> </h4>
 <h4>Condition: <%= item.itemCondition[0].toUpperCase() + item.itemCondition.slice(1,) %> </h4>
-<% if(user._id.equals(item.seller._id)) {%>
-    <h4>Seller: <a href="/users"><%= item.seller.name %></a></h4>
-<% } else { %>  
+<% if(user) {%> 
+    <% if(user._id.equals(item.seller._id)) {%>
+        <h4>Seller: <a href="/users"><%= item.seller.name %></a></h4>
+    <% } else { %>  
+        <h4>Seller: <a href="/users/<%= item.seller._id %>"><%= item.seller.name %></a></h4>
+    <% } %> 
+<% } else {%>
     <h4>Seller: <a href="/users/<%= item.seller._id %>"><%= item.seller.name %></a></h4>
-<% } %> 
+<% } %>  
 <h4>Game Reviews:</h4>
 <%- include('../partials/footer') %>
