@@ -5,4 +5,5 @@ var usersCtrl = require('../controllers/users');
 router.get('/', usersCtrl.index);
 router.get('/:id', usersCtrl.show)
 
+
 module.exports = router;

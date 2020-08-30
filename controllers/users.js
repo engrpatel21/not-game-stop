@@ -1,10 +1,13 @@
 const User = require('../models/user');
-const Item = require('../models/item')
+const Item = require('../models/item');
+const Review = require('../models/review')
 
 module.exports = {
   index,
-  show
+  show,
 };
+
+
 
 function show(req,res){
   User.findById(req.params.id, (err, seller) => {

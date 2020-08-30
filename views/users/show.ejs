@@ -4,5 +4,16 @@
         <% if(i.seller._id.equals(seller._id)) {%>
           <h1><%= i.itemName %></h1> 
         <% } %>  
-      <% }) %>  
+      <% }) %> 
+      <div class="form-container">
+      <form method="POST" action="/users/<%= seller._id %> ">
+        <div class="form-group">
+          
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Write a review about this seller:</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Post Review</button>
+      </form>
+    </div>
 <%- include('../partials/footer') %>  
