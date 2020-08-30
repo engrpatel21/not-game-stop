@@ -1,4 +1,6 @@
 <%- include('../partials/header') %> 
-<h1>new page</h1>
-<%= cart %> 
+<h1>Shopping Cart: <%= user.name %> </h1>
+<% cart.cart.forEach(c =>{%>
+    <li><%= c %> </li>
+<% }) %>  
 <%- include('../partials/footer') %> 
