@@ -8,12 +8,18 @@ module.exports = {
 }
 
 function deleteItem(req, res) {
-    User.findById(req.user._id)
-        .then(user => {
-            //console.log(user)
-            console.log('delete', req.user._id)
+  
+    let idx = req.user.cart.findIndex(i => i._id.equals(req.params.id))
+    console.log('idx', idx)
+    console.log('cart id', req.user.cart[0]._id)
+    console.log('reqparams', req.params.id)
+    req.user.cart.splice(idx, 1)
+    req.user.save()
+        .then(() => {
             res.redirect(`/carts/${req.user_id}`)
     })
+    
+    
 }
 
 function show(req, res) {
