@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const cartCtrl = require('../controllers/carts')
+const cartsCtrl = require('../controllers/carts')
 
 
-router.get('/carts/:id', cartCtrl.show)
+router.get('/carts', isLoggedIn, cartsCtrl.show)
 
 
 function isLoggedIn(req, res, next) {
