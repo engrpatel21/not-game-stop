@@ -15,4 +15,15 @@
     <h4>Seller: <a href="/users/<%= item.seller._id %>"><%= item.seller.name %></a></h4>
 <% } %>  
 <h4>Game Reviews:</h4>
+<div class="form-container">
+    <form method="POST" action="/items/<%= item._id %> ">
+      <div class="form-group">
+        
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Write a review about this game:</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="review"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">Post Review</button>
+    </form>
+  </div>
 <%- include('../partials/footer') %>
