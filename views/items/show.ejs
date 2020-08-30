@@ -15,10 +15,11 @@
     <h4>Seller: <a href="/users/<%= item.seller._id %>"><%= item.seller.name %></a></h4>
 <% } %>  
 <h4>Game Reviews:</h4>
-<%= reviews %> 
-<% reviews.forEach(r => { %>
-    
-<% }) %>  
+<% console.log() %> 
+<% for(let key in reviews){ %>
+    <li><%= reviews[key].gameId%></li> 
+    <% console.log(reviews[key].gameId._id) %> 
+<% } %>  
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">
