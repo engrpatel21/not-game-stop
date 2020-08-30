@@ -2,7 +2,7 @@ const router = require('express').Router()
 const cartsCtrl = require('../controllers/carts')
 
 
-router.get('/carts', isLoggedIn, cartsCtrl.show)
+router.get('/carts/:id', isLoggedIn, cartsCtrl.show)
 router.post('/carts/:id', isLoggedIn, cartsCtrl.createCart)
 
 
