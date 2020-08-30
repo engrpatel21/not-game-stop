@@ -23,6 +23,7 @@ const itemRouter = require('./routes/items');
 const sellerReviewsRouter = require('./routes/seller-reviews')
 const itemReviewsRouter = require('./routes/item-reviews')
 const indexRouter = require('./routes/index')
+const cartRouter = require('./routes/carts')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -49,6 +50,7 @@ app.use('/', itemRouter)
 app.use('/', sellerReviewsRouter)
 app.use('/', indexRouter)
 app.use('/', itemReviewsRouter)
+app.use('/', cartRouter)
 
 // invalid request, send 404 page
 app.use(function(req, res) {

@@ -5,10 +5,10 @@
 </h3>
 
 <% if(user.isSeller) {%>
-  <h3>Items for Sale:</h3>
+  <h2>Items for Sale:</h2>
   <% items.forEach(i =>{ %>
     <% if(i.seller._id.equals(user._id)) {%>
-      <h4><%= i.itemName %></h4> 
+      <h4><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4> 
     <% } %>  
   <% }) %> 
   <h3>Seller Reviews:</h3> 

@@ -24,6 +24,11 @@
 <% sellerReviews.forEach(s =>{%>
     <h4><%= s.review %> by <%= s.createdBy.name %>  </h4> 
 <% }) %>   
+
+<form action="/cart/<%= user._id %>" method="POST">
+  <input type="text" name="itemId" value="<%= item._id %>" hidden>
+  <button class="btn btn-primary" type="submit">Add to Cart</button>
+</form>
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">
