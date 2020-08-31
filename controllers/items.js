@@ -13,14 +13,30 @@ module.exports = {
     form,
     createItem,
     show,
-    editItem
+    editGame,
+    updateGame
 }
 
-function editItem(req, res) {
-    res.render('items/edit', {
-        title: 'Edit Item',
-        user: req.user ? req.user : null
+function updateGame(req, res) {
+    Item.findOneAndUpdate(req.params.id, req.body)
+        .then(item => {
+            console.log(item)
+            res.redirect('/users')
     })
+}
+
+function editGame(req, res) {
+    Item.findById(req.params.id)
+        .populate('seller')
+        .exec((err, item) => {
+            console.log(item)
+            res.render('items/edit-game', {
+                title: 'Edit Item',
+                user: req.user ? req.user : null,
+                item
+            })
+        })
+  
 }
 
 function show(req, res) {
