@@ -2,7 +2,7 @@
 <h1>Details page</h1>
 <img src="<%= item.picture %>" alt="" height="200" width="300">
 <h4>Name: <%= item.itemName %> </h4>
-<h4>Price <%= item.price %> </h4>
+
 <h4>Platform: <%= item.platform %> </h4>
 <h4>Condition: <%= item.itemCondition[0].toUpperCase() + item.itemCondition.slice(1,) %> </h4>
 <% if(user) {%> 
@@ -25,15 +25,16 @@
 <h3>Seller Reviews:</h3>
 <% sellerReviews.forEach(s =>{%>
     <h4><%= s.review %> by <%= s.createdBy.name %>  </h4> 
-<% }) %>   
+<% }) %> 
+<h4>Buy it Now!: $<%= item.price %> </h4>  
 <% if(user){%> 
 <form action="/carts/<%= user._id %>" method="POST">
   
   <input type="text" name="itemId" value="<%= item._id %>" hidden>
-  <button class="btn btn-primary" type="submit">Add to Cart</button>
+  <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
 </form>
 <% }else { %>
-  <a href="/auth/google"><button class="btn btn-primary" >Login to Buy</button></a>
+  <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Buy</button></a>
 <% } %>  
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">

@@ -12,7 +12,7 @@ router.post('/items/new/game', isLoggedIn, itemsCtrl.createItem)
 router.post('/items/new/gear', isLoggedIn, itemsCtrl.createItem)
 router.post('/items/new/game/search', isLoggedIn, itemsCtrl.search)
 router.put('/items/:id/edit/game', isLoggedIn, itemsCtrl.updateGame)
-
+router.delete('/items/:id', isLoggedIn, itemsCtrl.deleteItem)
 
 
 function isLoggedIn(req, res, next) {

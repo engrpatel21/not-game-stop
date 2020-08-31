@@ -14,7 +14,17 @@ module.exports = {
     createItem,
     show,
     editGame,
-    updateGame
+    updateGame,
+    deleteItem
+}
+
+function deleteItem(req, res) {
+    Item.findByIdAndDelete(req.params.id, (err) => {
+        if(err) return console.log(err)
+    }).
+        then(() => {
+        res.redirect('/users')
+    })
 }
 
 function updateGame(req, res) {
