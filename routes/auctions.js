@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var auctionsCtrl = require('../controllers/auctions');
 
-router.get('/items/auction/new', isLoggedIn, auctionsCtrl.newAuction);
+router.get('/items/auction/:id/new', isLoggedIn, auctionsCtrl.newAuction);
 
 
 function isLoggedIn(req, res, next) {

@@ -5,8 +5,13 @@ module.exports = {
 }
 
 function newAuction(req, res) {
-    res.render('auction/new', {
-        title: 'Place Bid',
-        user: req.user ? req.user : null
+    Item.findById(req.params.id)
+    .then(item =>{
+        res.render('auction/new', {
+            title: 'Place Bid',
+            user: req.user ? req.user : null,
+            item
+        })
     })
+  
 }
