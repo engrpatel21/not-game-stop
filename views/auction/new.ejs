@@ -2,9 +2,15 @@
 <h1>Place Bid: <%= user.name %> </h1>
 <img src="<%= item.picture %> " alt="">
 <h3><%= item.name %> </h3>
-<h3>Current Bid: <%= item.auction.currentBid ? item.auction.currentBid : item.bid %> </h3>
+<% let max = 0
+item.auction.forEach(i =>{
+  if(Number(i.currentBid) > max) max = Number(i.currentBid)
+})
+%> 
+<h3>Current Bid: <%= max ? max : item.bid %> </h3>
 <form action="/items/auctions/<%= item._id %>" method="POST">
     <div class="form-row">
+
     <label for="validationCustom02"><h3>Place Bid:</h3></label>
     <input type="text" class="form-control" id="validationCustom02" required pattern="\d+\.?\d{0,2}" name="currentBid">
     </div>

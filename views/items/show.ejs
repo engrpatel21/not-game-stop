@@ -39,7 +39,12 @@
 
 <% if(item.isAuction){%>
   <h4>Starting Bid: $<%= item.bid %></h4>
-  <h4>Current Bid: $<%= item.auction.currentBid ? item.auction.currentBid : item.bid %> </h4>
+  <% let max = 0
+    item.auction.forEach(i =>{
+      if(Number(i.currentBid) > max) max = Number(i.currentBid)
+    })
+  %> 
+  <h4>Current Bid: $<%= max ? max : item.bid %> </h4>
   <% if(user) {%> 
     <a href="/items/auctions/<%= item._id %>/new"><button class="btn btn-primary btn-sm" >Place a Bid</button></a>
   <% }else{%>
