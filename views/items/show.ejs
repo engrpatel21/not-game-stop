@@ -36,6 +36,8 @@
 <% }else { %>
   <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Buy</button></a>
 <% } %>  
+<%= item.isAuction %> 
+<%= item.bid %> 
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">

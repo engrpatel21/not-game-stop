@@ -76,7 +76,9 @@ function show(req, res) {
 }
 
 function createItem(req, res) {
-    req.body.isAuction = !!req.body.nowShowing
+    console.log(req.body.isAuction)
+    req.body.isAuction = !!req.body.isAuction
+    console.log('is Auction', req.body.isAuction)
     req.body.seller = req.user._id
     req.user.isSeller = convertToBoolean(req.body.isSeller)
     req.user.save().then(() => {
