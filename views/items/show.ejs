@@ -41,7 +41,7 @@
   <h4>Starting Bid: $<%= item.bid %></h4>
   <h4>Current Bid: $<%= item.auction.currentBid ? item.auction.currentBid : item.bid %> </h4>
   <% if(user) {%> 
-    <a href="/items/auction/<%= item._id %>/new"><button class="btn btn-primary btn-sm" >Place a Bid</button></a>
+    <a href="/items/auctions/<%= item._id %>/new"><button class="btn btn-primary btn-sm" >Place a Bid</button></a>
   <% }else{%>
     <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Bid</button></a>
   <% } %>  

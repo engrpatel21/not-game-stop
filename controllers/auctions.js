@@ -1,7 +1,22 @@
 const Item = require('../models/item')
 
+
 module.exports = {
-    newAuction
+    newAuction,
+    createAuction
+}
+
+function createAuction(req, res) {
+    console.log('i am here')
+    req.body.bidderId = req.user._id
+    Item.findById(req.params.id)
+        .then(item => {
+          
+            item.auction.push(req.body)
+            item.save().then(() => {
+                res.redirect(`/items/${item._id}`)
+            })
+    })
 }
 
 function newAuction(req, res) {
