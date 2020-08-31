@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const cartSchema = new Schema({
   itemId: { type: Schema.Types.ObjectId, ref: 'Item' },
+  totalCost: {type: Number}
   //gameId: { type: Schema.Types.ObjectId, ref: 'Item' },
 }, {
   timestamps: true

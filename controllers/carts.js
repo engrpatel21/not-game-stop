@@ -1,25 +1,28 @@
-const Cart = require('../models/cart')
+const Item = require('../models/item')
 const User = require('../models/user')
 
 module.exports = {
     show,
     createCart,
-    deleteItem
+    deleteItem,
+    payment
+}
+
+function payment(req, res) {
+    res.render('carts/payment', {
+        title: 'Payment',
+        user: req.user? req.user : null
+    })
 }
 
 function deleteItem(req, res) {
-  
+    
     let idx = req.user.cart.findIndex(i => i._id.equals(req.params.id))
-    console.log('idx', idx)
-    console.log('cart id', req.user.cart[0]._id)
-    console.log('reqparams', req.params.id)
     req.user.cart.splice(idx, 1)
     req.user.save()
         .then(() => {
             res.redirect(`/carts/${req.user_id}`)
-    })
-    
-    
+    })   
 }
 
 function show(req, res) {

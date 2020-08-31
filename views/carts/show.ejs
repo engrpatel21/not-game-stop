@@ -1,17 +1,11 @@
 <%- include('../partials/header') %> 
 
-<h2>Shopping Cart: <%= user.name %> </h2>
-<% cart.cart.forEach(c =>{%>
-    <li><%= c %> </li>
-<% }) %>  
-<h1>Break</h1>
-<%= cart %> 
 <table>
     <thead>
       <tr>
         <th>Item</th>
         <th>Price</th>
-        <th></th> 
+        <th>Remove</th> 
       </tr>
     </thead>
     <tbody>
@@ -20,9 +14,28 @@
           <td> <%= c.itemId.itemName %>  </td>
           <td>$<%= c.itemId.price %> </td>
           <td><form action="/carts/<%= c._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">x</button></form></td>
+          
           </tr>
          <% }) %> 
     </tbody>
+    <table>
+        <thead>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total:</td>
+                <td><% let sum = 0
+                     cart.cart.forEach(c =>{  
+                         sum += Number(c.itemId.price)
+                    }) %> 
+                    $<%= sum %> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form action="/carts/payment"> <button class="btn btn-primary" type="submit">Checkout</button></form>
   </table>
 
 <%- include('../partials/footer') %> 
