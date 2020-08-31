@@ -12,7 +12,15 @@ module.exports = {
     search,
     form,
     createItem,
-    show
+    show,
+    editItem
+}
+
+function editItem(req, res) {
+    res.render('items/edit', {
+        title: 'Edit Item',
+        user: req.user ? req.user : null
+    })
 }
 
 function show(req, res) {
@@ -27,9 +35,6 @@ function show(req, res) {
                     .populate('createdBy')
                     .populate('createdFor')
                     .exec((err, sellerReviews) => {
-                        console.log('REVIEWS', reviews)
-                        console.log('SELLER REVIEWS',sellerReviews)
-                        console.log('ITEM',item)
                         res.render('items/show', {
                             title: 'Item Details',
                             user: req.user ? req.user : null,

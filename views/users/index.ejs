@@ -6,11 +6,29 @@
 
 <% if(user.isSeller) {%>
   <h2>Items for Sale:</h2>
-  <% items.forEach(i =>{ %>
-    <% if(i.seller._id.equals(user._id)) {%>
-      <h4><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4> 
-    <% } %>  
-  <% }) %> 
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th></th> 
+      </tr>
+    </thead>
+      <tbody>
+        <% items.forEach(i =>{ %>
+          <% if(i.seller._id.equals(user._id)) {%>
+            <tr>
+              <td><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
+              <td>$<%= i.price %> </td>
+              <td><a href="/items/<%= i._id %>/edit">Edit</a></td>
+            </tr>
+        
+          <% } %>  
+        <% }) %> 
+        
+      </tbody>
+    </table>
+       
   <h3>Seller Reviews:</h3> 
   <% reviews.forEach(r => {%>
     <h4><%= r.review %> by <%= r.createdBy.name %> </h4>
