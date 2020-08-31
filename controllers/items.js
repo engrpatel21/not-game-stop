@@ -51,6 +51,7 @@ function editGame(req, res) {
 function show(req, res) {
     Item.findById(req.params.id)
         .populate('seller')
+        .populate('auction.bidderId')
         .exec((err, item) => {
         ItemReview.find({createdFor: {_id: req.params.id}})
             .populate('createdBy')
@@ -76,9 +77,8 @@ function show(req, res) {
 }
 
 function createItem(req, res) {
-    console.log(req.body.isAuction)
     req.body.isAuction = !!req.body.isAuction
-    console.log('is Auction', req.body.isAuction)
+  
     req.body.seller = req.user._id
     req.user.isSeller = convertToBoolean(req.body.isSeller)
     req.user.save().then(() => {

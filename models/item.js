@@ -1,7 +1,12 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const itemSchema = new mongoose.Schema({
+const auctionSchema = new Schema({
+  bidderId: { type: Schema.Types.ObjectId, ref: 'User' },
+  currentBid: {type: String}
+})
+
+const itemSchema = new Schema({
     itemName: { type: String, required: true },
     platform: {type: String, require: true},
     itemType: { type: String, required: true },
@@ -10,7 +15,8 @@ const itemSchema = new mongoose.Schema({
     isAuction: {type: Boolean, default: false},
     itemCondition: {type: String, required: true},
     picture: { type: String, default: 'Pic Not Found' },
-    seller:  { type: Schema.Types.ObjectId, ref: 'User'}
+    seller: { type: Schema.Types.ObjectId, ref: 'User' },
+    auction: [auctionSchema]
   }, {
     timestamps: true
 })

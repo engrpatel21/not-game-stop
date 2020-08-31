@@ -36,8 +36,17 @@
 <% }else { %>
   <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Buy</button></a>
 <% } %>  
-<%= item.isAuction %> 
-<%= item.bid %> 
+
+<% if(item.isAuction){%>
+  <h4>Starting Bid: $<%= item.bid %></h4>
+  <h4>Current Bid: $<%= item.auction.currentBid ? item.auction.currentBid : item.bid %> </h4>
+  <% if(user) {%> 
+    <a href="/items/auction/new"><button class="btn btn-primary btn-sm" >Place a Bid</button></a>
+  <% }else{%>
+    <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Bid</button></a>
+  <% } %>  
+<% } %>  
+
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
       <div class="form-group">
