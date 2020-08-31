@@ -9,6 +9,16 @@ const cartSchema = new Schema({
   timestamps: true
 })
 
+const purchaseHistory = new Schema({
+  firstName: String,
+  lastName: String,
+  ccNumber: Number,
+  ccExpDate: Number,
+  ccCVC: Number,
+  itemID: [cartSchema]
+
+})
+
 const userSchema = new Schema({
   name: String,
   email: String,
