@@ -26,7 +26,10 @@
 <% sellerReviews.forEach(s =>{%>
     <h4><%= s.review %> by <%= s.createdBy.name %>  </h4> 
 <% }) %> 
-<h4>Buy it Now!: $<%= item.price %> </h4>  
+<h4>Buy it Now!: $<%= item.price %> </h4> 
+<%= console.log(!user._id.equals(item.seller._id)) %>
+ 
+<% if(!user._id.equals(item.seller._id)) {%> 
 <% if(user){%> 
 <form action="/carts/<%= user._id %>" method="POST">
   
@@ -51,6 +54,8 @@
     <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Bid</button></a>
   <% } %>  
 <% } %>  
+  <% } %> 
+
 
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %> ">
