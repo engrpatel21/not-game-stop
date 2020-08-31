@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Item = require('../models/item')
 
 module.exports = {
     newPayment,
@@ -20,7 +21,9 @@ function createPayment(req, res) {
             user.paymentHistory.push(req.body)
             req.user.cart.forEach((item, idx) => {
                 user.purchaseHistory.push(item.itemId)
-               
+                Item.findByIdAndDelete(item.itemId, (err) => {
+                    if(err) return console.log(err)
+                })
             })
             
             user.cart.splice(0,)
