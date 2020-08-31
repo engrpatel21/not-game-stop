@@ -2,7 +2,7 @@ const router = require('express').Router()
 const cartsCtrl = require('../controllers/carts')
 
 
-router.get('/carts/payment', isLoggedIn, cartsCtrl.payment)
+
 router.get('/carts/:id', isLoggedIn, cartsCtrl.show)
 router.post('/carts/:id', isLoggedIn, cartsCtrl.createCart)
 router.delete('/carts/:id', isLoggedIn, cartsCtrl.deleteItem)

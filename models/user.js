@@ -3,20 +3,22 @@ const Schema = mongoose.Schema
 
 const cartSchema = new Schema({
   itemId: { type: Schema.Types.ObjectId, ref: 'Item' },
-  totalCost: {type: Number}
+ 
   //gameId: { type: Schema.Types.ObjectId, ref: 'Item' },
 }, {
   timestamps: true
 })
 
-const purchaseHistory = new Schema({
+const paymentHistory = new Schema({
   firstName: String,
   lastName: String,
   ccNumber: Number,
-  ccExpDate: Number,
-  ccCVC: Number,
-  itemID: [cartSchema]
+  ccExpDate: Date,
+  ccCVC: Number, 
+})
 
+const purchaseHistory = new Schema({
+  itemId: { type: Schema.Types.ObjectId, ref: 'Item' },
 })
 
 const userSchema = new Schema({
@@ -25,7 +27,9 @@ const userSchema = new Schema({
   avatar: String,
   googleId: String,
   isSeller: Boolean,
-  cart : [cartSchema]
+  cart: [cartSchema],
+  purchaseHistory: [purchaseHistory],
+  paymentHistory: [paymentHistory]
   
 }, {
   timestamps: true

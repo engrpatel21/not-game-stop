@@ -1,17 +1,18 @@
 <%- include('../partials/header') %>
+<%= user.cart[0].itemId %> 
 <h1>Payment</h1>
-<form class="needs-validation" method="POST" action="" novalidate>
+<form class="needs-validation" method="POST" action="/carts/payments" novalidate>
     <div class="form-row">
       <div class="col-md-6 mb-3">
         <label for="validationCustom01">First name</label>
-        <input type="text" class="form-control" id="validationCustom01" name="firstName" required pattern="[A-Z][a-z]?">
+        <input type="text" class="form-control" id="validationCustom01" name="firstName" required >
         <div class="valid-feedback">
           Looks good!
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="validationCustom02">Last name</label>
-        <input type="text" class="form-control" id="validationCustom02" name="lastName" required pattern=[A-Z][a-z]?>
+        <input type="text" class="form-control" id="validationCustom02" name="lastName" required>
         <div class="valid-feedback">
           Looks good!
         </div>
@@ -27,10 +28,7 @@
       </div>
       <div class="col-md-3 mb-3">
         <label for="validationCustom04">EXP Date (MMYY)</label>
-        <select class="custom-select" id="validationCustom04" name="ccExpDate" required>
-          <option selected disabled value="">Choose...</option>
-          <option>...</option>
-        </select>
+        <input type="date" name="ccExpDate">
         <div class="invalid-feedback">
           Please select a valid state.
         </div>

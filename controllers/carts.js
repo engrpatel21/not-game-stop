@@ -5,15 +5,8 @@ module.exports = {
     show,
     createCart,
     deleteItem,
-    payment
 }
 
-function payment(req, res) {
-    res.render('carts/payment', {
-        title: 'Payment',
-        user: req.user? req.user : null
-    })
-}
 
 function deleteItem(req, res) {
     
