@@ -20,7 +20,8 @@ router.get('/google/oauth2callback', passport.authenticate(
   }
 ));
 
-router.get('/logout', function(req, res){
+router.get('/logout', function (req, res) {
+  req.user.cart.splice(0,)
   req.logout();
   res.redirect('/');
 });

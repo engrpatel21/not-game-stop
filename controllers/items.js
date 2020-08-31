@@ -19,19 +19,22 @@ function show(req, res) {
     Item.findById(req.params.id)
         .populate('seller')
         .exec((err, item) => {
-        ItemReview.find({})
+        ItemReview.find({createdFor: {_id: req.params.id}})
             .populate('createdBy')
             .populate('createdFor')
             .exec((err, reviews) => {
-                SellerReview.find({createdFor: {_id: item.seller._id}})
+                SellerReview.find({ createdFor: { _id: item.seller._id } })
                     .populate('createdBy')
                     .populate('createdFor')
                     .exec((err, sellerReviews) => {
+                        console.log('REVIEWS', reviews)
+                        console.log('SELLER REVIEWS',sellerReviews)
+                        console.log('ITEM',item)
                         res.render('items/show', {
                             title: 'Item Details',
                             user: req.user ? req.user : null,
                             item,
-                            reviews,
+                            reviews: reviews? reviews : null,
                             sellerReviews
                     })
                

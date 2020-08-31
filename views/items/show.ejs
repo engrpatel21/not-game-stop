@@ -15,16 +15,17 @@
     <h4>Seller: <a href="/users/<%= item.seller._id %>"><%= item.seller.name %></a></h4>
 <% } %>  
 <h4>Game Reviews:</h4>
-<% reviews.forEach(r => {%>
-  <% if(r.createdFor._id.equals(item._id)) {%>
-     <h5><%= r.review %> by <%= r.createdBy.name %> </h5>
-  <% } %>  
-<% }) %>  
+
+
+  <% reviews.forEach(r => {%>
+    <% if(r.createdFor._id.equals(item._id)) {%>
+       <h5><%= r.review %> by <%= r.createdBy.name %> </h5>
+    <% } %>  
+  <% }) %>  
 <h3>Seller Reviews:</h3>
 <% sellerReviews.forEach(s =>{%>
     <h4><%= s.review %> by <%= s.createdBy.name %>  </h4> 
 <% }) %>   
-
 <% if(user){%> 
 <form action="/carts/<%= user._id %>" method="POST">
   

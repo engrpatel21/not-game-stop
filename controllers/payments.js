@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const Item = require('../models/item')
+const ItemReview = require('../models/item-review')
 
 module.exports = {
     newPayment,
@@ -22,6 +23,9 @@ function createPayment(req, res) {
             req.user.cart.forEach((item, idx) => {
                 user.purchaseHistory.push(item.itemId)
                 Item.findByIdAndDelete(item.itemId, (err) => {
+                    if(err) return console.log(err)
+                })
+                ItemReview.findOneAndDelete({ createdFor: { _id: item.itemId } }, (err) => {
                     if(err) return console.log(err)
                 })
             })
