@@ -3,7 +3,6 @@ const axios = require('axios')
 const User = require('../models/user')
 const ItemReview = require('../models/item-review')
 const SellerReview = require('../models/seller-review')
-const sellerReview = require('../models/seller-review')
 
 module.exports = {
     index,
@@ -77,7 +76,7 @@ function show(req, res) {
 }
 
 function createItem(req, res) {
-    
+    req.body.isAuction = !!req.body.nowShowing
     req.body.seller = req.user._id
     req.user.isSeller = convertToBoolean(req.body.isSeller)
     req.user.save().then(() => {

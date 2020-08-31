@@ -1,6 +1,6 @@
 <%- include('../partials/header') %> 
 <h1>Edit Page</h1>
-<%= item %> 
+
 
 <div class="form-container"> 
     <form class="needs-validation text-center" method="POST" action="/items/<%= item.id %>/edit/game?_method=PUT" novalidate>
@@ -11,7 +11,7 @@
             Looks good!
             </div>
             <label for="validationCustom02">Price</label>
-            <input type="text" class="form-control" id="validationCustom02" required pattern="\d+\.?\d{0,2}" name="price">
+            <input type="text" class="form-control" id="validationCustom02" value="<%= item.price %> " required pattern="\d+\.?\d{0,2}" name="price">
             <div class="valid-feedback">
             Looks good!
             </div>
