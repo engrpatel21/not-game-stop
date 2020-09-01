@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const itemReviewsCtrl = require('../controllers/item-reviews')
 
-console.log('reivew router')
 
 router.post('/items/:id/reviews', isLoggedIn, itemReviewsCtrl.createItemReview)
 

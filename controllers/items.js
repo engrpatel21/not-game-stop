@@ -27,10 +27,14 @@ function deleteItem(req, res) {
 }
 
 function updateGame(req, res) {
-    Item.findOneAndUpdate(req.params.id, req.body)
-        .then(item => {
-          
+    req.body.isAuction = !!req.body.isAuction
+    console.log('update body', req.body)
+    Item.findByIdAndUpdate(req.params.id, req.body)
+    .then(item =>{
+        item.save().then(()=>{
+            console.log(item)
             res.redirect('/users')
+        })
     })
 }
 
@@ -39,7 +43,7 @@ function editGame(req, res) {
         .populate('seller')
         .exec((err, item) => {
         
-            res.render('items/edit-game', {
+            res.render('items/edit', {
                 title: 'Edit Item',
                 user: req.user ? req.user : null,
                 item
@@ -52,6 +56,7 @@ function show(req, res) {
     Item.findById(req.params.id)
         .populate('auction.bidderId')
         .populate('seller')
+        .populate('reviews.createdBy')
         .exec((err, item) => {
             SellerReview.find({ createdFor: { _id: item.seller._id } })
                 .populate('createdBy')

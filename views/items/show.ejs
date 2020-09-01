@@ -15,11 +15,14 @@
     <h4>Seller: <a href="/users/<%= item.seller._id %>"><%= item.seller.name %></a></h4>
 <% } %>  
 <h4>Game Reviews:</h4>
-<%= item %> 
+<% item.reviews.forEach(r => {%>
+  <h3><%= r.review %> by <%= r.createdBy.name %> </h3>
+<% }) %>  
 
 <h3>Seller Reviews:</h3>
-<% sellerReviews.forEach(s =>{%>
+<% sellerReviews.forEach(s => {%>
     <h4><%= s.review %> by <%= s.createdBy.name %>  </h4> 
+
 <% }) %> 
 <h4>Buy it Now!: $<%= item.price %> </h4> 
 
@@ -36,10 +39,7 @@
   <% } %> 
 </form>
 <% }else { %>
-  <form action="/auth/google">
-    <input type="text" name="state" value="/items/<%= item._id %>" hidden>
-    <button class="btn btn-primary btn-sm" type="submit">Login to Buy</button></a>
-  </form>
+  <a href="/auth/google"><button class="btn btn-primary btn-sm" type="submit">Login to Buy</button></a>
 <% } %>  
 
 <% if(item.isAuction){%>
