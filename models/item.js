@@ -7,7 +7,8 @@ const auctionSchema = new Schema({
 })
 
 const itemReviewsSchema = new Schema({
-  createdBy: { type: Schema.Types.ObjectId, ref: 'User' }
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+  review: String
 })
 
 const itemSchema = new Schema({
@@ -18,7 +19,7 @@ const itemSchema = new Schema({
   bid: { type: String, default: 0 },
   isAuction: {type: Boolean, default: false},
   itemCondition: {type: String, required: true},
-  picture: { type: String, default: 'Pic Not Found' },
+  picture: { type: String },
   seller: { type: Schema.Types.ObjectId, ref: 'User' },
   auction: [auctionSchema],
   reviews: [itemReviewsSchema]

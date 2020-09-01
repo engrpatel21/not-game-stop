@@ -53,26 +53,17 @@ function show(req, res) {
         .populate('auction.bidderId')
         .populate('seller')
         .exec((err, item) => {
-            console.log('line 56', item)
-        ItemReview.find({createdFor: {_id: req.params.id}})
-            .populate('createdBy')
-            .populate('createdFor')
-            .exec((err, reviews) => {
-                console.log('line 61', item)
-                SellerReview.find({ createdFor: { _id: item.seller._id } })
-                    .populate('createdBy')
-                    .populate('createdFor')
-                    .exec((err, sellerReviews) => {
-                        res.render('items/show', {
-                            title: 'Item Details',
-                            user: req.user ? req.user : null,
-                            item,
-                            reviews: reviews? reviews : null,
-                            sellerReviews: sellerReviews ? sellerReviews : null
-                    })
-               
-           })
-           
+            SellerReview.find({ createdFor: { _id: item.seller._id } })
+                .populate('createdBy')
+                .populate('createdFor')
+                .exec((err, sellerReviews) => {
+                    res.render('items/show', {
+                        title: 'Item Details',
+                        user: req.user ? req.user : null,
+                        item,
+                        sellerReviews
+                })
+            
         })
    
     })

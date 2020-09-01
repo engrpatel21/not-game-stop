@@ -1,4 +1,4 @@
-const ItemReview = require('../models/item-review')
+const Item = require('../models/item')
 
 module.exports = {
     createItemReview,
@@ -8,10 +8,11 @@ module.exports = {
 function createItemReview(req, res) {
    
     req.body.createdBy = req.user._id
-    req.body.createdFor = req.params.id
-  
-    ItemReview.create(req.body)
-        .then(() => {
-        res.redirect(`/items/${req.params.id}`)
+    Item.findById(req.params.id)
+    .then(item =>{
+        item.reviews.push(req.body)
+        item.save().then(()=>{
+            res.redirect(`/items/${req.params.id}`)
+        })
     })
 }
