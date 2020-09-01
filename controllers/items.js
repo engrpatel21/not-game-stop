@@ -29,13 +29,36 @@ function deleteItem(req, res) {
 function updateGame(req, res) {
     req.body.isAuction = !!req.body.isAuction
     console.log('update body', req.body)
-    Item.findByIdAndUpdate(req.params.id, req.body)
-    .then(item =>{
-        item.save().then(()=>{
-            console.log(item)
-            res.redirect('/users')
+    if(!req.body.isAuction){
+        Item.findbyId(req.params.id)
+        .then(item =>{
+            item.auction.splice(0,)
+            item.save().then(()=>{
+                Item.findByIdAndUpdate(req.params.id, req.body)
+                .then(item =>{
+                    console.log(item)
+                    item.save().then(()=>{
+                        console.log(item)
+                        res.redirect('/users')
+                    })
+                })
+
+            })
         })
-    })
+    }else{
+        item.save().then(()=>{
+            Item.findByIdAndUpdate(req.params.id, req.body)
+            .then(item =>{
+                console.log(item)
+                item.save().then(()=>{
+                    console.log(item)
+                    res.redirect('/users')
+                })
+            })
+
+        })       
+    }
+
 }
 
 function editGame(req, res) {

@@ -10,12 +10,22 @@ function createAuction(req, res) {
 
     req.body.bidderId = req.user._id
     Item.findById(req.params.id)
-        .then(item => {
-          
-            item.auction.push(req.body)
-            item.save().then(() => {
+        .populate('auction.bidderId')
+        .exec((err,item) => {
+            let idx = item.auction.findIndex(a => a.bidderId.equals(req.user._id))
+            if(idx === -1){
+                item.auction.push(req.body)
+                item.save().then(() => {
                 res.redirect(`/items/${item._id}`)
-            })
+                })
+            }else{
+                item.auction[idx].currentBid = req.body.currentBid
+                item.save().then(()=>{
+                    res.redirect(`/items/${item._id}`)
+                })
+            }
+            
+            
     })
 }
 
