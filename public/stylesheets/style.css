@@ -44,3 +44,7 @@ body {
   width: 500px;
   margin: 0 auto;
 }
+
+.hide{
+  display: none;
+}

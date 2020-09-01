@@ -7,14 +7,41 @@ item.auction.forEach(i =>{
   if(Number(i.currentBid) > max) max = Number(i.currentBid)
 })
 %> 
-<h3>Current Bid: <%= max ? max : item.bid %> </h3>
-<form action="/items/auctions/<%= item._id %>" method="POST">
+<h3>Current Bid: <span id="current-bid"><%= max ? max : item.bid %></span> </h3>
+<div class="form-container">
+<form  action="/items/auctions/<%= item._id %>" method="POST">
     <div class="form-row">
 
-    <label for="validationCustom02"><h3>Place Bid:</h3></label>
-    <input type="text" class="form-control" id="validationCustom02" required pattern="\d+\.?\d{0,2}" name="currentBid">
+    <label for="currentBid"><h3>Place Bid:</h3></label>
+    <input type="text" class="form-control" id="input-bid" required pattern="\d+\.?\d{0,2}" name="currentBid">
     </div>
-    <button class="btn btn-primary btn" type="submit">Place Bid</button>
+    <button id="input-button" class="btn btn-primary btn" type="submit">Place Bid</button>
 </form>
+</div>
+<script>
+const currentBid = document.querySelector('#current-bid')
+const inputBid = document.querySelector('#input-bid')
+const form = document.getElementsByClassName('validate')
+const inputBtn = document.querySelector('#input-button')
+let max = Number(currentBid.textContent)
 
+inputBid.addEventListener('keypress',(e)=>{
+  if(Number(inputBid.value) <= max){
+  
+    if(e.which === 13){
+      e.stopPropagation()
+      e.preventDefault()
+    }
+  }
+
+ })
+
+inputBtn.onclick = (e) =>{
+  if(Number(inputBid.value) <= max){
+    e.stopPropagation()
+    e.preventDefault()  
+  }
+}
+
+</script>
 <%- include('../partials/footer') %>  
