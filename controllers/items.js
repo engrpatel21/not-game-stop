@@ -80,12 +80,15 @@ function show(req, res) {
 
 function createItem(req, res) {
     req.body.isAuction = !!req.body.isAuction
-  
+    req.user.isSeller = convertToBoolean(req.body.isSeller)
     req.body.seller = req.user._id
+    req.user.save().then(()=>{
         Item.create(req.body)
             .then(() => {
                 res.redirect('/items')
+        })
     })
+        
     
 }
 

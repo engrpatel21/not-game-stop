@@ -20,18 +20,17 @@ function deleteItem(req, res) {
 }
 
 function show(req, res) {
- 
+
     User.findById(req.user._id)
         .populate('cart.itemId')
-        .exec( (err, cart)  => {
-                 
-                    res.render('carts/show', {
-                        title: 'Shopping Cart',
-                        user: req.user ? req.user : null,
-                        cart
-                    })
-                })
-     
+        .exec((err, userCart)  => {
+            console.log(userCart)
+        res.render('carts/show', {
+            title: 'Shopping Cart',
+            user: req.user ? req.user : null,
+            userCart
+        })
+    })
 }
 
 function createCart(req, res) {

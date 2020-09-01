@@ -9,8 +9,8 @@
       </tr>
     </thead>
     <tbody>
-         %> 
-         <% cart.cart.forEach(c =>{ %>  
+         
+         <% userCart.cart.forEach(c =>{ %>  
             <% if(c.itemId.itemName) {%> 
           <tr>
           <td> <%= c.itemId.itemName %>  </td>
@@ -31,7 +31,7 @@
             <tr>
                 <td>Total:</td>
                 <td><% let sum = 0
-                     cart.cart.forEach(c =>{  
+                     userCart.cart.forEach(c =>{  
                          sum += Number(c.itemId.price)
                     }) %> 
                     $<%= sum %> 

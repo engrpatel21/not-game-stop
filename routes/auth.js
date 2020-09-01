@@ -21,9 +21,13 @@ router.get('/google/oauth2callback', passport.authenticate(
 ));
 
 router.get('/logout', function (req, res) {
+  console.log(req.user)
   req.user.cart.splice(0,)
-  req.logout();
-  res.redirect('/');
+  req.user.save().then(()=>{
+    req.logout();
+    res.redirect('/');
+  })
+ 
 });
 
 

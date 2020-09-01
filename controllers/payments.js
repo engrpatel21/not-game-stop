@@ -22,10 +22,7 @@ function createPayment(req, res) {
             user.paymentHistory.push(req.body)
             req.user.cart.forEach((item, idx) => {
                 user.purchaseHistory.push(item.itemId)
-                Item.pre('deleteMany', function(next) {
-                    var item = this;
-                    item.model('Assignment').deleteOne({ item: item._id }, next);
-                });
+                Item.findByIdAndDelete(item.itemId, (err)=>{})
             })
             
             user.cart.splice(0,)
