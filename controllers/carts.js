@@ -5,6 +5,7 @@ module.exports = {
     show,
     createCart,
     deleteItem,
+
 }
 
 
@@ -23,7 +24,7 @@ function show(req, res) {
     User.findById(req.user._id)
         .populate('cart.itemId')
         .exec( (err, cart)  => {
-                  
+                 
                     res.render('carts/show', {
                         title: 'Shopping Cart',
                         user: req.user ? req.user : null,

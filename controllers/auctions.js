@@ -7,7 +7,7 @@ module.exports = {
 }
 
 function createAuction(req, res) {
-    console.log('i am here')
+
     req.body.bidderId = req.user._id
     Item.findById(req.params.id)
         .then(item => {

@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 <h1>Details page</h1>
-<img src="<%= item.picture %>" alt="" height="200" width="300">
+//<img src="<%= item.picture %>" alt="" height="200" width="300">
 <h4>Name: <%= item.itemName %> </h4>
 
 <h4>Platform: <%= item.platform %> </h4>
@@ -27,14 +27,18 @@
     <h4><%= s.review %> by <%= s.createdBy.name %>  </h4> 
 <% }) %> 
 <h4>Buy it Now!: $<%= item.price %> </h4> 
-<%= console.log(!user._id.equals(item.seller._id)) %>
- 
-<% if(!user._id.equals(item.seller._id)) {%> 
-<% if(user){%> 
+
+
+
+
+
+  <% if(user ){%> 
 <form action="/carts/<%= user._id %>" method="POST">
   
   <input type="text" name="itemId" value="<%= item._id %>" hidden>
+  <% if(!(user._id.equals(item.seller._id))) {%> 
   <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
+  <% } %> 
 </form>
 <% }else { %>
   <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Buy</button></a>
@@ -49,12 +53,14 @@
   %> 
   <h4>Current Bid: $<%= max ? max : item.bid %> </h4>
   <% if(user) {%> 
+    <% if(!(user._id.equals(item.seller._id))) {%> 
     <a href="/items/auctions/<%= item._id %>/new"><button class="btn btn-primary btn-sm" >Place a Bid</button></a>
+    <% } %> 
   <% }else{%>
     <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Bid</button></a>
   <% } %>  
 <% } %>  
-  <% } %> 
+
 
 
 <div class="form-container">

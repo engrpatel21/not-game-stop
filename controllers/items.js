@@ -29,7 +29,7 @@ function deleteItem(req, res) {
 function updateGame(req, res) {
     Item.findOneAndUpdate(req.params.id, req.body)
         .then(item => {
-            console.log(item)
+          
             res.redirect('/users')
     })
 }
@@ -38,7 +38,7 @@ function editGame(req, res) {
     Item.findById(req.params.id)
         .populate('seller')
         .exec((err, item) => {
-            console.log(item)
+        
             res.render('items/edit-game', {
                 title: 'Edit Item',
                 user: req.user ? req.user : null,
@@ -50,13 +50,15 @@ function editGame(req, res) {
 
 function show(req, res) {
     Item.findById(req.params.id)
-        .populate('seller')
         .populate('auction.bidderId')
+        .populate('seller')
         .exec((err, item) => {
+            console.log('line 56', item)
         ItemReview.find({createdFor: {_id: req.params.id}})
             .populate('createdBy')
             .populate('createdFor')
             .exec((err, reviews) => {
+                console.log('line 61', item)
                 SellerReview.find({ createdFor: { _id: item.seller._id } })
                     .populate('createdBy')
                     .populate('createdFor')
@@ -66,10 +68,10 @@ function show(req, res) {
                             user: req.user ? req.user : null,
                             item,
                             reviews: reviews? reviews : null,
-                            sellerReviews
+                            sellerReviews: sellerReviews ? sellerReviews : null
                     })
                
-            })
+           })
            
         })
    
@@ -80,13 +82,9 @@ function createItem(req, res) {
     req.body.isAuction = !!req.body.isAuction
   
     req.body.seller = req.user._id
-    req.user.isSeller = convertToBoolean(req.body.isSeller)
-    req.user.save().then(() => {
         Item.create(req.body)
             .then(() => {
                 res.redirect('/items')
-        })
-        
     })
     
 }
@@ -137,7 +135,7 @@ function index(req, res) {
     Item.find({})
         .populate('seller')
         .exec((err, items) => {
-        
+   
         if (req.user) {
             User.findOne({ googleId: req.user.googleId })
                 .then(user => {
