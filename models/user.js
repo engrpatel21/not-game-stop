@@ -29,7 +29,8 @@ const userSchema = new Schema({
   isSeller: Boolean,
   cart: [cartSchema],
   purchaseHistory: [purchaseHistory],
-  paymentHistory: [paymentHistory]
+  paymentHistory: [paymentHistory],
+  state: String,
   
 }, {
   timestamps: true

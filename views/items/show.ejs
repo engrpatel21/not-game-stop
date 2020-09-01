@@ -41,7 +41,10 @@
   <% } %> 
 </form>
 <% }else { %>
-  <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Buy</button></a>
+  <form action="/auth/google">
+    <input type="text" name="state" value="/items/<%= item._id %> ">
+    <button class="btn btn-primary btn-sm" type="submit">Login to Buy</button></a>
+  </form>
 <% } %>  
 
 <% if(item.isAuction){%>

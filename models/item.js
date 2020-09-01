@@ -6,17 +6,22 @@ const auctionSchema = new Schema({
   currentBid: {type: String}
 })
 
+const itemReviewsSchema = new Schema({
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User' }
+})
+
 const itemSchema = new Schema({
-    itemName: { type: String, required: true },
-    platform: {type: String, require: true},
-    itemType: { type: String, required: true },
-    price: { type: String, required: true },
-    bid: { type: String, default: 0 },
-    isAuction: {type: Boolean, default: false},
-    itemCondition: {type: String, required: true},
-    picture: { type: String, default: 'Pic Not Found' },
-    seller: { type: Schema.Types.ObjectId, ref: 'User' },
-    auction: [auctionSchema]
+  itemName: { type: String, required: true },
+  platform: {type: String, require: true},
+  itemType: { type: String, required: true },
+  price: { type: String, required: true },
+  bid: { type: String, default: 0 },
+  isAuction: {type: Boolean, default: false},
+  itemCondition: {type: String, required: true},
+  picture: { type: String, default: 'Pic Not Found' },
+  seller: { type: Schema.Types.ObjectId, ref: 'User' },
+  auction: [auctionSchema],
+  reviews: [itemReviewsSchema]
   }, {
     timestamps: true
 })
