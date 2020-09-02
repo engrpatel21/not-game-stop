@@ -28,7 +28,8 @@
 
 
 
-
+<% let timeDiff = (Date.now() - item.updatedAt.getTime())/(3600000)  %> 
+<%= timeDiff %> 
 
   <% if(user ){%> 
 <form action="/carts/<%= user._id %>" method="POST">
@@ -51,9 +52,11 @@
   %> 
   <h4>Current Bid: $<%= max ? max : item.bid %> </h4>
   <% if(user) {%> 
-    <% if(!(user._id.equals(item.seller._id))) {%> 
-    <a href="/items/auctions/<%= item._id %>/new"><button class="btn btn-primary btn-sm" >Place a Bid</button></a>
-    <% } %> 
+    <% if(!(user._id.equals(item.seller._id)) && !(timeDiff > 6)) {%> 
+      <a href="/items/auctions/<%= item._id %>/new"><button class="btn btn-primary btn-sm" >Place a Bid</button></a>
+    <% } else if(!(user._id.equals(item.seller._id)) && timeDiff > 6){%>
+      <h3> Auction has expried </h3>
+    <% } %>  
   <% }else{%>
     <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Bid</button></a>
   <% } %>  
