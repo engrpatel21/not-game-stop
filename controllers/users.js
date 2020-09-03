@@ -13,6 +13,7 @@ function show(req,res){
   User.findById(req.params.id, (err, seller) => {
     Item.find({})
       .populate('seller')
+      .populate('auction.bidderId')
       .exec((err, items) => {
         SellerReview.find({})
           .populate('createdBy')

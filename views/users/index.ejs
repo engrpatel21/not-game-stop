@@ -11,7 +11,8 @@
       <tr>
         <th>Item</th>
         <th>Price</th>
-        <th>Time Left:</th>
+        <th>Time Left</th>
+        <th>Highest Bid</th>
         <th></th> 
       </tr>
     </thead>
@@ -23,29 +24,48 @@
             <% auctionTime = 6 - indexTimeDiff %> 
             <% let indexHr = Math.floor(auctionTime) %> 
             <% let indexMin = (auctionTime - Math.floor(auctionTime))*60 %>
-            
-            
+            <% let max = 0
+              i.auction.forEach(a => {
+                if(a.currentBid > max) max = a.currentBid
+              })
+            %> 
+
             
               <td><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
               <td>$<%= i.price %> </td>
           
               <td class='item-print'>
                 <% if (i.isAuction) { %>
-                  <%= indexHr %>Hr
-                  <% if (indexMin <10){%>
-                    0<%= Math.floor(indexMin) %>Min
-                  <% } else { %>
-                    <%= Math.floor(indexMin) %>Min
-                  <% } %> 
+                  <% if(indexHr < 0){ %> 
+                    Auction Over!
+                  <% }else{ %>
+                    <%= indexHr %>H
+                    <% if (indexMin <10){%>
+                      0<%= Math.floor(indexMin) %>M
+                    <% } else { %>
+                      <%= Math.floor(indexMin) %>M
+                    <% } %> 
+                  <% } %>  
                 <% }else{%>
                   Buy Out
                 <% } %> 
               
+             
                                 
               </td>
-              <td><a href="/items/<%= i._id %>/edit/game"><button class="btn btn-primary btn-sm" type="submit">Edit</button></a></td>
+              <td><%= max > 0 ? max : 'No Bids' %> </td>
+              <% if (i.isAuction) { %>
+              <% if(indexHr < 0) {%>
+                <td><a href="/items/auction/<%= i._id %>"><button class="btn btn-primary btn-sm" type="submit">Award Auction</button></a></td>
+              <% } else { %>
+                <td><a href="/items/auction/<%= i._id %>"><button class="btn btn-primary btn-sm" type="submit">Auction Details</button></a></td>
+              <% } %>  
+              <% }else{ %>
+                <td></td>
+              <% } %> 
+              
+              <td><a href="/items/<%= i._id %>/edit/game"><button class="btn btn-success btn-sm" type="submit">Edit Posting</button></a></td>
               <td><form action="/items/<%= i._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">Remove</button></form></td>
-              <td><%= i.isAuction %> </td>
             </tr>
             
           <% } %>  

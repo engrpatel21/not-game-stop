@@ -3,7 +3,20 @@ const Item = require('../models/item')
 
 module.exports = {
     newAuction,
-    createAuction
+    createAuction,
+    showAuction
+}
+
+function showAuction(req, res){
+    Item.findById(req.params.id)
+    .populate('auction.bidderId')
+    .exec((err, item) =>{
+        res.render('auction/show', {
+            title: 'Auction Details',
+            item,
+            user: req.user ? req.user : null
+        })
+    })
 }
 
 function createAuction(req, res) {

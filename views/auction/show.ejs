@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+<% let max = 0
+item.auction.forEach(a =>{
+    if(a.currentBid > max) max = a.currentBid
+})
+%> 
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Bid</th>
+        </tr>
+    </thead>
+        <% item.auction.forEach(a =>{ %>
+            <tr>
+                <td><%= a.bidderId.name %> </td>
+                <td>$<%= a.currentBid %> </td>
+                <td><%= a.currentBid === max ? 'Winner' :  ''%> </td>
+            </tr>
+        <% }) %>  
+    <tbody>
+
+    </tbody>
+</table>
+<%- include('../partials/footer')%>
