@@ -21,6 +21,11 @@ const purchaseHistory = new Schema({
   itemId: { type: Schema.Types.ObjectId, ref: 'Item' },
 })
 
+const messagesSchema = new Schema({
+  mesasge: String,
+  from: { type: Schema.Types.ObjectId, ref: 'User' }
+})
+
 const userSchema = new Schema({
   name: String,
   email: String,
