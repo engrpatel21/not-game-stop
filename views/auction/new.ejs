@@ -1,13 +1,9 @@
 <%- include('../partials/header') %>
-<h1>Place Bid: <%= user.name %> </h1>
+<h1>Bidder: <%= user.name %> </h1>
 <img src="<%= item.picture %> " alt="">
 <h3><%= item.name %> </h3>
-<% let max = 0
-item.auction.forEach(i =>{
-  if(Number(i.currentBid) > max) max = Number(i.currentBid)
-})
-%> 
-<h3>Current Bid: <span id="current-bid"><%= max ? max : item.bid %></span> </h3>
+
+<h3>Current Bid: <span id="current-bid"><%= item.bid %> </span> </h3>
 <div class="form-container">
 <form  action="/items/auctions/<%= item._id %>" method="POST">
     <div class="form-row">

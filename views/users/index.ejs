@@ -4,6 +4,10 @@
   Name: <%= user.name %> 
 </h3>
 
+<% items.forEach(i =>{ %>
+  <li><%= i %> </li>
+<% }) %>   
+
 <% if(user.isSeller) {%>
   <h2>Items for Sale:</h2>
   <table>
@@ -13,6 +17,7 @@
         <th>Price</th>
         <th>Time Left</th>
         <th>Highest Bid</th>
+        <th>Highest Bidder</th>
         <th></th> 
       </tr>
     </thead>
@@ -24,11 +29,7 @@
             <% auctionTime = 6 - indexTimeDiff %> 
             <% let indexHr = Math.floor(auctionTime) %> 
             <% let indexMin = (auctionTime - Math.floor(auctionTime))*60 %>
-            <% let max = 0
-              i.auction.forEach(a => {
-                if(a.currentBid > max) max = a.currentBid
-              })
-            %> 
+         
 
             
               <td><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
@@ -53,7 +54,8 @@
              
                                 
               </td>
-              <td><%= max > 0 ? max : 'No Bids' %> </td>
+              <td><%= i.bid > 0 ? i.bid : 'No Bid'%> </td>
+              <td></td>
               <% if (i.isAuction) { %>
               <% if(indexHr < 0) {%>
                 <td><a href="/items/auction/<%= i._id %>"><button class="btn btn-primary btn-sm" type="submit">Award Auction</button></a></td>

@@ -36,6 +36,7 @@ function index(req, res) {
 
   Item.find({})
     .populate('seller')
+    .populate('bidderId')
     .exec((err, items) => {
       SellerReview.find({createdFor: {_id: req.user._id}})
         .populate('createdFor')
