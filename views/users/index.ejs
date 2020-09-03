@@ -55,7 +55,7 @@
              
                                 
               </td>
-              <td><%= i.bid > 0 ? i.bid : 'No Bid'%> </td>
+              <td>$<%= i.bid > 0 ? i.bid : 'No Bid'%> </td>
               <% if(i.bidderId) {%> 
               <td><%= i.bidderId.name %> </td>
               <% }else{ %>
@@ -94,9 +94,23 @@
       </tbody>
     </table>
 
+
+
   <h4>Your Bids</h4>
   <% items.forEach(i=>{%>
     <% if(i.isAwarded && user._id.equals(i.bidderId._id)){%> 
+      <% let cartCheck = false%> 
+      <li><%= i %></li> 
+      
+      <%= user.cart.length %> 
+      <% if(user.cart.length > 0) {
+        console.log(true)
+        user.cart.forEach(c =>{
+        
+          if(c.itemId.equals(i._id)) cartCheck = true
+          else cartCheck = false
+        })
+      }%> 
       <table>
         <thead>
           <tr>
@@ -107,6 +121,20 @@
         <tbody>
           <td><%= i.itemName %> </td>
           <td>$<%= i.bid %> </td>
+          <td>
+            <form action="/carts/<%= user._id %>" method="POST">
+  
+              <input type="text" name="itemId" value="<%= i._id %>" hidden>
+              <% if(!(user._id.equals(i.seller._id))) {%> 
+                <% if(!cartCheck){ %> 
+                   <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
+                <% } else {%>
+                  
+                <% } %>  
+              <% } %> 
+            </form>
+
+          </td>
         </tbody>
       </table>
     <% } %> 
