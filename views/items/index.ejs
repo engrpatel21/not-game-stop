@@ -1,6 +1,7 @@
 <%- include('../partials/header') %>
 <section id="items-container">
     <% items.forEach(i =>{  %>
+      <% if(!i.isAwarded) {%> 
         <div class="text-center item1"> 
             <div class="card" style="width: 18rem;">
                 <img src="<%= i.picture %> " class="card-img-top" alt="...">
@@ -18,6 +19,7 @@
                 </div>
             </div>
         </div>
+      <% } %> 
     <% }) %>  
 </section>
     

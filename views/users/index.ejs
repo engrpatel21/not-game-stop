@@ -4,9 +4,7 @@
   Name: <%= user.name %> 
 </h3>
 
-<% items.forEach(i =>{ %>
-  <li><%= i %> </li>
-<% }) %>   
+
 
 <% if(user.isSeller) {%>
   <h2>Items for Sale:</h2>
@@ -22,8 +20,13 @@
       </tr>
     </thead>
       <tbody  >
-        <tr>
+        
         <% items.forEach(i =>{ %>
+        
+          <% if(i.isAwarded && user._id.equals(i.bidderId._id)){%> 
+            <li><%= i %> </li>
+          <% } %> 
+
           <% if(i.seller._id.equals(user._id)) {%>
             <% let indexTimeDiff = (Date.now() - i.updatedAt.getTime())/(3600000)  %> 
             <% auctionTime = .01 - indexTimeDiff %> 
@@ -31,7 +34,7 @@
             <% let indexMin = (auctionTime - Math.floor(auctionTime))*60 %>
          
 
-            
+            <tr>
               <td><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
               <td>$<%= i.price %> </td>
           
@@ -58,11 +61,17 @@
               <td><%= i.bidderId.name %> </td>
               <% if (i.isAuction) { %>
               <% if(indexHr < 0) {%>
-                <td> <form action="/messages/<%= i.bidderId._id %>" method="POST">
-                  <input type="text" name="itemId" value="<%= i._id %> " hidden>   
+                <td>
+                  <% if(i.isAwarded) {%>
+                    Message Sent
+                  <% } else {%>   
+                  <form action="/messages/<%= i._id %>" method="POST">
+                  <input type="text" name="bidderId" value="<%= i.bidderId._id %>" hidden>   
                   <input type="text" name="isAwarded" value='true' hidden>
                   <button class="btn btn-primary btn-sm" type="submit">Message Winner</button>
-              </form></td>
+                  </form>
+                  <% } %>
+              </td>
               <% } else { %>
                 <td><a href="/items/auction/<%= i._id %>"><button class="btn btn-primary btn-sm" type="submit">Auction Details</button></a></td>
               <% } %>  
