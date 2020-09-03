@@ -15,7 +15,7 @@ function createAwardMessage(req,res){
         user.save().then(()=>{
             Item.findByIdAndUpdate(req.body.itemId, req.body)
             .then(()=>{
-                res.redirect(`/items/auction/${req.body.itemId}`)
+                res.redirect(`/users`)
             })
         })
     })
