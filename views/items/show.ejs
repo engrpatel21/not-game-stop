@@ -26,10 +26,19 @@
 <% }) %> 
 <h4>Buy it Now!: $<%= item.price %> </h4> 
 
+ 
+
+<% let timeDiff = ((Date.now()) - item.updatedAt.getTime())/(3600000)  %> 
+<div><% timeDiff = 6 - timeDiff %></div>
+
+<% let hr = Math.floor(timeDiff) %> 
+<% let min = (timeDiff - Math.floor(timeDiff))*60 %>
+<% let sec = (min - Math.floor(min)) * 60 %> 
+
+ 
 
 
-<% let timeDiff = (Date.now() - item.updatedAt.getTime())/(3600000)  %> 
-<%= timeDiff %> 
+
 
   <% if(user ){%> 
 <form action="/carts/<%= user._id %>" method="POST">
@@ -50,19 +59,23 @@
       if(Number(i.currentBid) > max) max = Number(i.currentBid)
     })
   %> 
-  <h4>Current Bid: $<%= max ? max : item.bid %> </h4>
+  <h4>Current Bid: $<%= max ? max : item.bid %> 
+  <% if(timeDiff > 0){ %> 
+    Time Remaining: <Span id='item-page-time'><%= hr %>:<%= Math.floor(min) %>:<%= Math.floor(sec) %></Span>
+  <% } %>
+  </h4>
   <% if(user) {%> 
-    <% if(!(user._id.equals(item.seller._id)) && !(timeDiff > 6)) {%> 
+    <% if(!(user._id.equals(item.seller._id)) && !(timeDiff < 0)) {%> 
       <a href="/items/auctions/<%= item._id %>/new"><button class="btn btn-primary btn-sm" >Place a Bid</button></a>
-    <% } else if(!(user._id.equals(item.seller._id)) && timeDiff > 6){%>
+      <h4>Time Remaining: </h4>
+    <% } else if(!(user._id.equals(item.seller._id)) && timeDiff < 0){%>
       <h3> Auction has expried </h3>
     <% } %>  
   <% }else{%>
     <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Bid</button></a>
+    <h4>Time</h4>
   <% } %>  
 <% } %>  
-
-
 
 <div class="form-container">
     <form method="POST" action="/items/<%= item._id %>/reviews">
@@ -75,4 +88,41 @@
       <button class="btn btn-primary" type="submit">Post Review</button>
     </form>
   </div>
+  <script>
+    let time = document.querySelector('#item-page-time')
+    console.log(time.textContent)
+    let hr = parseInt(time.textContent.slice(0,1))
+    console.log(hr)
+    let min = parseInt(time.textContent.slice(2,4))
+    console.log(min)
+    let sec = parseInt(time.textContent.slice(5,))
+    console.log(sec)
+    let interval;
+    function timer(){
+      sec -=1
+      if(sec < 0) {
+        sec = 59
+        min -= 1
+      }
+      if(min < 0){
+        min = 59
+        hr -=1
+      }
+      let printMin = min
+      let printSec = sec
+      if(min < 10) printMin = `0${min}`
+      
+      if(sec < 10) printSec = `0${sec}`
+      
+      console.log(hr, min, sec)
+      time.textContent = `${hr}:${printMin}:${printSec}`
+      if(hr <= 0 && min <= 0 && sec <= 0){
+        return clearInterval( interval)
+      }
+      
+    }
+    interval = setInterval(timer, 1000)
+    
+
+  </script>
 <%- include('../partials/footer') %>

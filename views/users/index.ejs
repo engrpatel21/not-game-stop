@@ -11,16 +11,26 @@
       <tr>
         <th>Item</th>
         <th>Price</th>
+        <th>Time Left:</th>
         <th></th> 
       </tr>
     </thead>
-      <tbody>
-       
+      <tbody  >
+        <tr>
         <% items.forEach(i =>{ %>
           <% if(i.seller._id.equals(user._id)) {%>
-            <tr>
+            <% let indexTimeDiff = (Date.now() - i.updatedAt.getTime())/(3600000)  %> 
+            <% indexTimeDiff = .1 - indexTimeDiff %> 
+            <% let indexHr = Math.floor(indexTimeDiff) %> 
+            <% let indexMin = (indexTimeDiff - Math.floor(indexTimeDiff))*60 %>
+            <% let indexSec = (indexMin - Math.floor(indexMin)) * 60 %> 
+            
+            
               <td><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
               <td>$<%= i.price %> </td>
+              <td hidden class='item-data'><%= indexHr %>:<%= Math.floor(indexMin) %>:<%= Math.floor(indexSec) %></td>
+              <td class='item-print'>
+              </td>
               <td><a href="/items/<%= i._id %>/edit/game"><button class="btn btn-primary btn-sm" type="submit">Edit</button></a></td>
               <td><form action="/items/<%= i._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">Remove</button></form></td>
               <td><%= i.isAuction %> </td>
@@ -31,6 +41,7 @@
         
       </tbody>
     </table>
+
        
   <h3>Seller Reviews:</h3> 
   <% reviews.forEach(r => {%>
@@ -38,5 +49,75 @@
   <% }) %>  
 <% } %>  
 
+<script>
+  const items = document.querySelectorAll('.item-data')
+  const itemsPrint = document.querySelectorAll('.item-print')
+  let arrayHr =[] 
+  let arrayMin =[] 
+  let arraySec =[]
+  console.log(items[1].innerText)
+    items.forEach((item, idx) =>{
+    
+    if(item.innerText[0] !== '-'){
+    arrayHr.push(item.innerText.slice(0,1))
+    console.log(item.innerText.slice(0,1))
+    arrayMin.push(item.innerText.slice(item.innerText.indexOf(':')+1,item.innerText.indexOf(':',2)))
+    arraySec.push(item.innerText.slice(item.innerText.indexOf(':',2)+1,))
+
+
+    if(parseInt(arrayMin[idx])<10) arrayMin[idx] = `0${arrayMin[idx]}`
+    if(parseInt(arraySec[idx])<10) arraySec[idx] = `0${arraySec[idx]}`
+    itemsPrint[idx].innerText = `${arrayHr[idx]}:${arrayMin[idx]}:${arraySec[idx]}`
+    arrayMin[idx] = parseInt(arrayMin[idx])
+    arrayHr[idx] = parseInt(arrayHr[idx])
+    }else{
+      itemsPrint[idx].innerText = 'Auction Over'
+    }
+  })
+  
+  console.log(arrayHr)
+  console.log(arrayMin)
+  console.log(arraySec)
+  let indexInterval
+  function indexTimer(){
+    
+    for(let i = 0; i< items.length; i++){
+      // if(items[i].innerText[0] === '-'){
+      //   return itemsPrint[i].innerText = 'Auction Over'
+      // }
+      arraySec[i] = parseInt(arraySec[i]) -1
+      if(arraySec[i] < 0) {
+        arraySec[i] = 59 
+        arrayMin[i] = parseInt(arrayMin[i]) - 1
+      }
+      if(arrayMin[i] < 0){
+        arrayMin[i] = 59
+        arrayHr[i] -= 1
+      }
+ 
+    
+      let printIndexMin = arrayMin[i]
+      let printIndexSec = arraySec[i]
+      
+      if(arrayMin[i]< 10) printIndexMin = `0${arrayMin[i]}`
+      if(arraySec[i]< 10) printIndexSec = `0${arraySec[i]}` 
+      console.log(arrayHr, printIndexMin, printIndexSec)
+      if(parseInt(arrayHr[i])< 0 ){
+        console.log('here')
+        itemsPrint[i].innerText = 'Auction Over!'
+      }else if(!isNaN(arraySec[i])){
+        itemsPrint[i].textContent = `${arrayHr[i]}:${printIndexMin}:${printIndexSec}`
+      }
+   
+    }
+    
+      
+  
+ }
+
+ 
+  setInterval(indexTimer, 1000)
+
+</script>
 
 <%- include('../partials/footer') %> 

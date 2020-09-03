@@ -88,7 +88,7 @@ function show(req, res) {
                         title: 'Item Details',
                         user: req.user ? req.user : null,
                         item,
-                        sellerReviews
+                        sellerReviews,
                 })
             
         })
@@ -176,3 +176,7 @@ function convertToBoolean(field) {
     if (field === 'false') return field = false
 }
 
+function timer(){
+    let hello = 'hello'
+    return hello
+}
