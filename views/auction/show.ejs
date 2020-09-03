@@ -4,7 +4,7 @@ item.auction.forEach(a =>{
     if(a.currentBid > max) max = a.currentBid
 })
 %> 
-
+<%= item.auction[0].bidderId._id%> 
 
 <table>
     <thead>
@@ -13,11 +13,21 @@ item.auction.forEach(a =>{
             <th>Bid</th>
         </tr>
     </thead>
-        <% item.auction.forEach(a =>{ %>
+        <% item.auction.forEach((a,i) =>{ %>
             <tr>
                 <td><%= a.bidderId.name %> </td>
                 <td>$<%= a.currentBid %> </td>
-                <td><%= a.currentBid === max ? 'Winner' :  ''%> </td>
+                <% if(a.currentBid === max) {%> 
+                <td>
+                    <form action="/messages/<%= a.bidderId._id%>" method="POST">
+                        <input type="text" name="itemId" value="<%= item._id%>" hidden>   
+                        <input type="text" name="isAwarded" value='true' hidden>
+                        <button class="btn btn-primary btn-sm" type="submit">Message Winner</button>
+                </form>
+                </td>
+                <% } else { %>
+                    <td></td>
+                <% } %>  
             </tr>
         <% }) %>  
     <tbody>

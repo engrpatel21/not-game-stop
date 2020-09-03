@@ -1,8 +1,9 @@
 var router = require('express').Router();
-var MessagesCtrl = require('../controllers/messages');
+var messagesCtrl = require('../controllers/messages');
 
 
-
+router.get('/messages/:id/new', isLoggedIn, messagesCtrl.newAwardMessage)
+router.post('/messages/:id', isLoggedIn, messagesCtrl.createAwardMessage)
 
 
 function isLoggedIn(req, res, next) {

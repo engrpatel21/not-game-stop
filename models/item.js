@@ -20,6 +20,7 @@ const itemSchema = new Schema({
   isAuction: {type: Boolean, default: false},
   itemCondition: {type: String, required: true},
   picture: { type: String },
+  isAwarded: {type: Boolean, default: false},
   seller: { type: Schema.Types.ObjectId, ref: 'User' },
   auction: [auctionSchema],
   reviews: [itemReviewsSchema]

@@ -10,6 +10,7 @@ module.exports = {
 function showAuction(req, res){
     Item.findById(req.params.id)
     .populate('auction.bidderId')
+    .populate('seller')
     .exec((err, item) =>{
         res.render('auction/show', {
             title: 'Auction Details',
