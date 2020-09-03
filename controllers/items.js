@@ -76,7 +76,7 @@ function editGame(req, res) {
 
 function show(req, res) {
     Item.findById(req.params.id)
-        .populate('auction.bidderId')
+        .populate('bidderId')
         .populate('seller')
         .populate('reviews.createdBy')
         .exec((err, item) => {

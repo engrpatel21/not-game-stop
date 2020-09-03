@@ -1,6 +1,7 @@
 <%- include('../partials/header') %>
     <h1><%= seller.name %>'s Profile </h1>
     <h2>Selling:</h2>
+   
     <% items.forEach(i =>{ %>
         <% if(i.seller._id.equals(seller._id)) {%>
           <h4><a href="/items/<%= i._id %>"><%= i.itemName %></a></h4> 

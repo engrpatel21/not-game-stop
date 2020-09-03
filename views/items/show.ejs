@@ -1,4 +1,5 @@
 <%- include('../partials/header') %>
+
 <h1>Details page</h1>
 
 <h4>Name: <%= item.itemName %> </h4>
@@ -40,12 +41,28 @@
 
 
 
+<% let cartCheck = false
+if(user.cart.length !== 0){
+  console.log('here')
+  user.cart.forEach(i=>{
+    console.log(i.itemId.equals(item._id))
+    if(i.itemId.equals(item._id)) cartCheck = true
+    else cartCheck = false
+  })
+}
+ %> 
+
+
   <% if(user ){%> 
 <form action="/carts/<%= user._id %>" method="POST">
   
   <input type="text" name="itemId" value="<%= item._id %>" hidden>
   <% if(!(user._id.equals(item.seller._id))) {%> 
-  <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
+    <% if(!cartCheck){ %> 
+       <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
+    <% } else {%>
+      
+    <% } %>  
   <% } %> 
 </form>
 <% }else { %>
