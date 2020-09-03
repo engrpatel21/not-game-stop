@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const auctionSchema = new Schema({
-  bidderId: { type: Schema.Types.ObjectId, ref: 'User' },
-  currentBid: {type: String}
-})
 
 const itemReviewsSchema = new Schema({
   createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -22,7 +18,7 @@ const itemSchema = new Schema({
   picture: { type: String },
   isAwarded: {type: Boolean, default: false},
   seller: { type: Schema.Types.ObjectId, ref: 'User' },
-  auction: [auctionSchema],
+  bidderId: { type: Schema.Types.ObjectId, ref: 'User' },
   reviews: [itemReviewsSchema]
   }, {
     timestamps: true

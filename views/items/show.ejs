@@ -53,15 +53,9 @@
 <% } %>  
 
 <% if(item.isAuction){%>
-  <h4>Starting Bid: $<%= item.bid %></h4>
-  <% let max = 0
-    item.auction.forEach(i =>{
-      if(Number(i.currentBid) > max) max = Number(i.currentBid)
-    })
-  %> 
-  <h4>Current Bid: $<%= max ? max : item.bid %> 
+  <h4>Current Bid: $<%= item.bid %></h4> 
   <% if(timeDiff > 0){ %> 
-    Time Remaining: <Span id='item-page-time'><%= hr %>:<%= Math.floor(min) %>:<%= Math.floor(sec) %></Span>
+    <div>Time Remaining: <Span id='item-page-time'><%= hr %>:<%= Math.floor(min) %>:<%= Math.floor(sec) %></Span></div> 
   <% } %>
   </h4>
   <% if(user) {%> 
@@ -73,7 +67,6 @@
     <% } %>  
   <% }else{%>
     <a href="/auth/google"><button class="btn btn-primary btn-sm" >Login to Bid</button></a>
-    <h4>Time</h4>
   <% } %>  
 <% } %>  
 
@@ -89,40 +82,6 @@
     </form>
   </div>
   <script>
-    let time = document.querySelector('#item-page-time')
-    console.log(time.textContent)
-    let hr = parseInt(time.textContent.slice(0,1))
-    console.log(hr)
-    let min = parseInt(time.textContent.slice(2,4))
-    console.log(min)
-    let sec = parseInt(time.textContent.slice(5,))
-    console.log(sec)
-    let interval;
-    function timer(){
-      sec -=1
-      if(sec < 0) {
-        sec = 59
-        min -= 1
-      }
-      if(min < 0){
-        min = 59
-        hr -=1
-      }
-      let printMin = min
-      let printSec = sec
-      if(min < 10) printMin = `0${min}`
-      
-      if(sec < 10) printSec = `0${sec}`
-      
-      console.log(hr, min, sec)
-      time.textContent = `${hr}:${printMin}:${printSec}`
-      if(hr <= 0 && min <= 0 && sec <= 0){
-        return clearInterval( interval)
-      }
-      
-    }
-    interval = setInterval(timer, 1000)
-    
-
+   
   </script>
 <%- include('../partials/footer') %>
