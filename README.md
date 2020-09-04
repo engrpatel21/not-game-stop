@@ -11,6 +11,17 @@ This is an ecommerce site specifically for gamers. Gamers can post their games f
 ### User Dashboard
 ![Imgur](https://i.imgur.com/94xCIxs.png)
 
+## Planning 
+### ERD
+![Imgur](https://i.imgur.com/hHTKO3G.png)
+
+### User Stories
+AAU I should be able to log in
+AAU I should be able to add games to sell
+AAU I should be able to see details for an item
+AAU I should be able to browse without logging in. 
+AAU I should be able to add items to a cart. 
+
 ## Tech Stack
 The technologies used in the Project
 * Node.js
