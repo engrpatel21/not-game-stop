@@ -5,8 +5,14 @@ const SellerReview = require('../models/seller-review')
 module.exports = {
   index,
   show,
+  test
 };
 
+function test(req,res){
+  res.render('items/test',{
+    user: req.user ? req.user : null
+  })
+}
 
 
 function show(req,res){

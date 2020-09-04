@@ -6,6 +6,7 @@ const cartsCtrl = require('../controllers/carts')
 router.get('/carts/:id', isLoggedIn, cartsCtrl.show)
 router.post('/carts/:id', isLoggedIn, cartsCtrl.createCart)
 router.delete('/carts/:id', isLoggedIn, cartsCtrl.deleteItem)
+router.post('/carts/:id/auction', isLoggedIn, cartsCtrl.createCartAuction)
 
 
 function isLoggedIn(req, res, next) {

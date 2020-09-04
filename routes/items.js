@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const itemsCtrl = require('../controllers/items')
 
-
+router.get('/items/test', itemsCtrl.test)
 router.get('/items', itemsCtrl.index)
 router.get('/items/new/game', isLoggedIn, itemsCtrl.newGame)
 router.get('/items/new/gear', isLoggedIn, itemsCtrl.newGear)

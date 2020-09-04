@@ -5,7 +5,18 @@ module.exports = {
     show,
     createCart,
     deleteItem,
+    createCartAuction
 
+}
+
+function createCartAuction(req,res){
+    User.findById(req.params.id)
+    .then(user => {
+        user.cart.push(req.body)
+        user.save(err => {
+            res.redirect(`/users`)   
+        })
+})
 }
 
 
@@ -24,7 +35,6 @@ function show(req, res) {
     User.findById(req.user._id)
         .populate('cart.itemId')
         .exec((err, userCart)  => {
-            console.log(userCart)
         res.render('carts/show', {
             title: 'Shopping Cart',
             user: req.user ? req.user : null,

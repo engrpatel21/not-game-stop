@@ -11,10 +11,12 @@
     <tbody>
          
          <% userCart.cart.forEach(c =>{ %>  
+
             <% if(c.itemId.itemName) {%> 
           <tr>
           <td> <%= c.itemId.itemName %>  </td>
-          <td>$<%= c.itemId.price %> </td>
+          <td>$ <%= c.itemId.isAwarded ? c.itemId.bid : c.itemId.price %> 
+           
           <td><form action="/carts/<%= c._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">x</button></form></td>
           
           </tr>
@@ -32,7 +34,11 @@
                 <td>Total:</td>
                 <td><% let sum = 0
                      userCart.cart.forEach(c =>{  
-                         sum += Number(c.itemId.price)
+                      if(c.itemId.isAwarded){
+                        sum += Number(c.itemId.bid)
+                      }else{
+                        sum += Number(c.itemId.price)
+                      }
                     }) %> 
                     $<%= sum %> 
                 </td>

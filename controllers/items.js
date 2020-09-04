@@ -14,7 +14,15 @@ module.exports = {
     show,
     editGame,
     updateGame,
-    deleteItem
+    deleteItem,
+    test
+}
+
+function test(req, res){
+    res.render('items/test',{
+        title: 'test',
+        user: req.user ? req.user : null
+    })
 }
 
 function deleteItem(req, res) {
@@ -28,7 +36,6 @@ function deleteItem(req, res) {
 
 function updateGame(req, res) {
     req.body.isAuction = !!req.body.isAuction
-    console.log('update body', req.body)
     if(!req.body.isAuction){
         Item.findById(req.params.id)
         .then(item =>{
@@ -36,9 +43,7 @@ function updateGame(req, res) {
             item.save().then(()=>{
                 Item.findByIdAndUpdate(req.params.id, req.body)
                 .then(item =>{
-                    console.log(item)
                     item.save().then(()=>{
-                        console.log(item)
                         res.redirect('/users')
                     })
                 })
@@ -48,9 +53,7 @@ function updateGame(req, res) {
     }else{
         Item.findByIdAndUpdate(req.params.id, req.body)
         .then(item =>{
-            console.log(item)
             item.save().then(()=>{
-                console.log(item)
                 res.redirect('/users')
             })
         })

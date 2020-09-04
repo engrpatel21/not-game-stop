@@ -26,8 +26,8 @@
          
 
           <% if(i.seller._id.equals(user._id)) {%>
-            <% let indexTimeDiff = (Date.now() - i.updatedAt.getTime())/(3600000)  %> 
-            <% auctionTime = .01 - indexTimeDiff %> 
+            <% let indexTimeDiff = (Date.now() - i.auctionStart.getTime())/(3600000)  %> 
+            <% auctionTime = 5 - indexTimeDiff %> 
             <% let indexHr = Math.floor(auctionTime) %> 
             <% let indexMin = (auctionTime - Math.floor(auctionTime))*60 %>
          
@@ -100,15 +100,17 @@
   <% items.forEach(i=>{%>
     <% if(i.isAwarded && user._id.equals(i.bidderId._id)){%> 
       <% let cartCheck = false%> 
-      <li><%= i %></li> 
+    
       
-      <%= user.cart.length %> 
+    
       <% if(user.cart.length > 0) {
-        console.log(true)
+ 
         user.cart.forEach(c =>{
         
-          if(c.itemId.equals(i._id)) cartCheck = true
-          else cartCheck = false
+          if(c.itemId.equals(i._id)) {cartCheck = true}
+          else{
+            cartCheck = false
+          }
         })
       }%> 
       <table>
@@ -122,7 +124,7 @@
           <td><%= i.itemName %> </td>
           <td>$<%= i.bid %> </td>
           <td>
-            <form action="/carts/<%= user._id %>" method="POST">
+            <form action="/carts/<%= user._id%>/auction" method="POST">
   
               <input type="text" name="itemId" value="<%= i._id %>" hidden>
               <% if(!(user._id.equals(i.seller._id))) {%> 

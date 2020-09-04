@@ -2,22 +2,23 @@
 <section id="items-container">
     <% items.forEach(i =>{  %>
       <% if(!i.isAwarded) {%> 
-        <div class="text-center item1"> 
-            <div class="card" style="width: 18rem;">
-                <img src="<%= i.picture %> " class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title"><%= i.itemName%> </h5>
-                  <p class="card-text"><%= i.itemType[0].toUpperCase() + i.itemType.slice(1,) %><br><%= i.platform %></p>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Auction: <%= i.isAuction? 'Yes' : 'No' %> </li>
-                  <li class="list-group-item">Price: $<%= i.price %> </li>
-                  <li class="list-group-item">Seller: <%= i.seller.name %> </li>
-                </ul>
-                <div class="card-body">
-                  <a href="/items/<%= i._id %>" class="card-link">Details</a>
-                </div>
-            </div>
+      
+        <div class="card h-90">
+          <a href="/items/<%= i._id %>"><img class="card-img-top"  src="<%= i.picture %>" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="/items/<%= i._id %>"><%= i.itemName %> </a>
+            </h4>
+            <h5>Buy Out Price: $<%=  i.price %> </h5>
+            <p class="card-text"> <ul class="list-group list-group-flush">
+              <li class="list-group-item">Auction: <%= i.isAuction? 'Yes' : 'No' %> </li>
+              <li class="list-group-item">Seller: <%= i.seller.name %> </li>
+              <li class="list-group-item"><%= i.isAuction ? 'Current Bid: $' + i.bid : '' %> </li>
+            </ul></p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+          </div>
         </div>
       <% } %> 
     <% }) %>  

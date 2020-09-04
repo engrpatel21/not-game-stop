@@ -9,7 +9,6 @@ module.exports = {
 function createAwardMessage(req,res){
     req.body.message = 'You won an auction, check your Auctions page!'
     req.body.from = req.body.bidderId
-    console.log(req.body)
     User.findById(req.body.bidderId)
     .then(user =>{
         user.messages.push(req.body)
