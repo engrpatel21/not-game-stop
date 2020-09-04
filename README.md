@@ -15,6 +15,10 @@ This is an ecommerce site specifically for gamers. Gamers can post their games f
 ### ERD
 ![Imgur](https://i.imgur.com/hHTKO3G.png)
 
+### Wire Frames
+![Imgur](https://i.imgur.com/6XGvLTh.png)
+![Imgur](https://i.imgur.com/mUDMrNU.png)
+
 ### User Stories
 AAU I should be able to log in
 AAU I should be able to add games to sell
