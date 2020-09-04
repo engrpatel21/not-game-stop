@@ -36,10 +36,11 @@ function deleteItem(req, res) {
 
 function updateGame(req, res) {
     req.body.isAuction = !!req.body.isAuction
+    req.body.auctionStart = new Date(Date.now())
     if(!req.body.isAuction){
         Item.findById(req.params.id)
         .then(item =>{
-            item.auction.splice(0,)
+          
             item.save().then(()=>{
                 Item.findByIdAndUpdate(req.params.id, req.body)
                 .then(item =>{
