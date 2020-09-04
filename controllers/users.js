@@ -2,12 +2,16 @@ const User = require('../models/user');
 const Item = require('../models/item');
 const SellerReview = require('../models/seller-review');
 const item = require('../models/item');
+const user = require('../models/user');
 
 module.exports = {
   userProfile,
   show,
-  updateBio
+  updateBio,
+ 
 };
+
+
 
 function updateBio(req, res) {
   User.findById(req.params.id)
@@ -23,12 +27,17 @@ function show(req,res){
   User.findById(req.params.id)
     .populate('reviews.createdBy')
     .exec((err, seller) => {
-      console.log(seller)
-      res.render('users/show', {
-        title: 'User Profile',
-        user: req.user ? req.user : null,
-        seller
+     
+      Item.find({})
+        .then(items => {
+          res.render('users/show', {
+            title: 'User Profile',
+            user: req.user ? req.user : null,
+            seller,
+            items
+          })
       })
+    
     })
 
 }
@@ -43,7 +52,7 @@ function userProfile(req, res) {
         .populate('createdFor')
         .populate('createdBy')
         .exec((err, reviews) => {
-          res.render('users/user-profile', {
+          res.render('users/index', {
             title: 'Profile',
             user: req.user ? req.user : null,
             items,

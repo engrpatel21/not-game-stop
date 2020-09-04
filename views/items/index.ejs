@@ -1,9 +1,9 @@
 <%- include('../partials/header') %>
-<section id="items-container">
+<section id="items-container" class="mb4">
     <% items.forEach(i =>{  %>
       <% if(!i.isAwarded) {%> 
       
-        <div class="card h-90">
+        <div class="card h-90 mb-4">
           <a href="/items/<%= i._id %>"><img class="card-img-top"  src="<%= i.picture %>" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">

@@ -17,10 +17,8 @@
             <div class="card-body">
               <h5 class="card-title"><%= game.name %> </h5>
               <p class="card-text">Released: <%= game.released %></p>
-              <p>Platforms:</p>
-              <% game.platforms.forEach(p => { %>
-                <p class="card-text"><%= p.platform.name %></p>
-              <% }) %>
+              <p>Platforms: <%= game.platforms[0].name %> </p>
+             
               <p class="card-text">Metacritic Score: <%= game.metacritic ? game.metacritic : 'N/A' %></p>
               <!-- This is a button that we'll use to navigate to the game's 'show' page.  We still need to fill in the route -->
               <a href="/items/new/game/<%= game.slug %>" class="btn btn-primary">Select Game</a>

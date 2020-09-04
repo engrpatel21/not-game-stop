@@ -17,11 +17,11 @@ const itemSchema = new Schema({
   bid: { type: String, default: 0 },
   isAuction: {type: Boolean, default: false},
   itemCondition: {type: String, required: true},
-  picture: { type: String },
+  picture: { type: String, default: 'https://i.imgur.com/BnfmoPH.jpg'},
   isAwarded: {type: Boolean, default: false},
   auctionStart: {type: Date, default: new Date(Date.now())},
   seller: { type: Schema.Types.ObjectId, ref: 'User' },
-  bidderId: { type: Schema.Types.ObjectId, ref: 'User' },
+  bidderId: { type: Schema.Types.ObjectId, ref: 'User', default: null},
   reviews: [itemReviewsSchema]
   }, {
     timestamps: true

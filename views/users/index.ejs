@@ -1,19 +1,48 @@
 <%- include('../partials/header') %> 
-<h3> <%= user.name %> </h3>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" href="/users">Profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Reviews</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Sales Dasboard</a>
-  </li>
-</ul>
-<h3>
 
-</h3>
+
+<% let count = 0 
+ items.forEach(i =>{ 
+    if(i.seller._id.equals(user._id)) {
+        count++
+     } 
+ })%>  
+<div class="row mb-4">
+    <div class="container">
+        <div class="col-lg-12 .parentContainer">
+            <div class="card mt-4">
+                <div class="card" >
+                    <div class="row no-gutters">
+                        <div class="col-lg-5">
+                            <img class="card-img" src="<%= user.avatar %> " style="height: 100%" alt="Suresh Dasari Card">
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text"> <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Name: <%= user.name %> </li>
+                            <li class="list-group-item">Bio: <%= user.bio %> </li>
+                            <li class="list-group-item">   
+                                <form method="POST" action="/users/<%= user._id %>/bio?_method=PUT">
+                                <div class="form-group">
+                                  </div>
+                          
+                                <div class="form-group">
+                                  <label for="exampleFormControlTextarea1">Update Bio: 
+                                  </label>
+                                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="bio"></textarea>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Upate</button>
+                              </form></li>
+                            </ul></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -22,18 +51,21 @@
     <h2>Items You Are Selling:</h2>
   </div>
   <div class="parentContainer">
-    <table>
+    <% if(count > 0) {%> 
+    <table id="bids-table">
       <thead>
         <tr>
-          <th>Item</th>
-          <th>Price</th>
-          <th>Time Left</th>
-          <th>Highest Bid</th>
-          <th>Highest Bidder</th>
-          <th></th> 
+          <th class="top-left">Item</th>
+          <th class="middle">Price</th>
+          <th class="middle">Time Left</th>
+          <th class="middle">Highest Bid</th>
+          <th class="middle">Highest Bidder</th>
+          <th>Status</th>
+          <th>Edit</th>
+          <th class="top-right">Remove</th> 
         </tr>
       </thead>
-        <tbody  >
+        <tbody >
           
           <% items.forEach(i =>{ %>
             
@@ -46,9 +78,9 @@
               <% let indexMin = (auctionTime - Math.floor(auctionTime))*60 %>
            
   
-              <tr>
-                <td><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
-                <td>$<%= i.price %> </td>
+              <tr class="table">
+                <td ><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
+                <td >$<%= i.price %> </td>
             
                 <td class='item-print'>
                   <% if (i.isAuction) { %>
@@ -92,14 +124,14 @@
                     <% } %>
                 </td>
                 <% } else { %>
-                  <td><a href="/items/auction/<%= i._id %>"><button class="btn btn-primary btn-sm" type="submit">Auction Details</button></a></td>
+                  <td>Auction in Progress</td>
                 <% } %>  
                 <% }else{ %>
                   <td></td>
                 <% } %> 
                 
                 <td><a href="/items/<%= i._id %>/edit/game"><button class="btn btn-success btn-sm" type="submit">Edit Posting</button></a></td>
-                <td><form action="/items/<%= i._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">Remove</button></form></td>
+                <td class="bottom-right"><form action="/items/<%= i._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">Remove</button></form></td>
               </tr>
               
             <% } %>  
@@ -107,52 +139,87 @@
           
         </tbody>
     </table>
+  <% } %> 
   </div>
+  <% let check = false
+    items.forEach(i=>{
+    if(i.bidderId){
+      console.log(true)
+    if( user._id.equals(i.bidderId._id)) check = true
+    }
+    else check = false
+  }) %> 
+
+<div class="parentContainer mt-4">
+  <h4>Your Bids</h4>
+</div>
+<div class="parentContainer">
+   
+    <table>
+      <thead>
+    
+            <tr>
+              <th class="top-left">Item</th>
+              <th>Bid</th>
+              <th class="top-right">Awarded?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% items.forEach(i=>{%>
+              <% if(i.bidderId) {%> 
+              <% if(user._id.equals(i.bidderId._id)){%> 
+                <tr>
+                    <td><%= i.bidderId.name %> </td>
+                   <td>$<%= i.bid %> </td>
+                  <td>
+              <form action="/carts/<%= user._id%>/auction" method="POST">
+                <input type="text" name="itemId" value="<%= i._id %>" hidden>
+             
+                <% if(!(user._id.equals(i.seller._id))) {%>
+                  <% if(i.isAwarded && !user.cart.find(c => c.itemId.equals(i._id))){ %> 
+                    <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
+                 <% } else {%>
+                  <% } %>  
+                  <% } %> 
+                  
+                </form>
+  
+              </td>
+              </tr>
+            <% } %> 
+            <% } %> 
+            <% }) %>  
+          </tbody>
+        </table>
+      
+  </div>
+
  
 
-
-  <table>
-    <thead>
-  <h4>Your Bids</h4>
-          <tr>
-            <th>Item</th>
-            <th>Bid</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% items.forEach(i=>{%>
-            <% if(i.isAwarded && user._id.equals(i.bidderId._id)){%> 
-              <tr>
-                 <td><%= i.itemName %> </td>
-                 <td>$<%= i.bid %> </td>
-                <td>
-            <form action="/carts/<%= user._id%>/auction" method="POST">
-              <input type="text" name="itemId" value="<%= i._id %>" hidden>
-           
-              <% if(!(user._id.equals(i.seller._id))) {%>
-                <% if(!user.cart.find(c => c.itemId.equals(i._id))){ %> 
-                  <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
-               <% } else {%>
-                <% } %>  
-                <% } %> 
-                
-              </form>
-
-            </td>
-            </tr>
-          <% } %> 
-          <% }) %>  
-        </tbody>
-      </table>
-   <%= user.cart %> 
-       
+<div class="parentContainer mt-4">
   <h3>Seller Reviews:</h3> 
+</div>
+
   
-  <%=user.reviews %>
-  
-  <% reviews.forEach(r => {%>
-    <h4><%= r.review %> by <%= r.createdBy.name %> </h4>
-  <% }) %>  
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <%= user.name %>'s  Reviews
+          </div>
+          <div class="card-body">
+           
+          <% reviews.forEach(r => {%>
+            <p><%= r.review %></p><small>Posted by <%= r.createdBy.name %>  on <%= r.createdAt.toString().slice(0,15) %></small>  </h4>
+            <hr>
+          <% }) %> 
+          </div>
+        </div>
+      </div>
+          
+    </div>
+  </div>
 <% } %>  
 
 

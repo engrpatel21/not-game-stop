@@ -1,16 +1,5 @@
 <%- include('../partials/header') %> 
-<h3> <%= user.name %> </h3>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" href="/users">Profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/users/reviews">Reviews</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Sales Dasboard</a>
-  </li>
-</ul>
+
 <% let count = 0 
  items.forEach(i =>{ 
     if(i.seller._id.equals(user._id)) {
@@ -54,6 +43,7 @@
         </div>
     </div>
 </div>
+
 
 
 

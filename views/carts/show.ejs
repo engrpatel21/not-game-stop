@@ -1,52 +1,69 @@
 <%- include('../partials/header') %> 
 
-<table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Remove</th> 
-      </tr>
-    </thead>
-    <tbody>
-         
-         <% userCart.cart.forEach(c =>{ %>  
-
-            <% if(c.itemId.itemName) {%> 
-          <tr>
-          <td> <%= c.itemId.itemName %>  </td>
-          <td>$ <%= c.itemId.isAwarded ? c.itemId.bid : c.itemId.price %> 
-           
-          <td><form action="/carts/<%= c._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">x</button></form></td>
-          
-          </tr>
-          <% } %> 
-         <% }) %> 
-        
-    </tbody>
+<% if(userCart.cart.length === 0) {%>
+  <div class="parentContainer">
+    <h3>CART IS EMPTY!</h3> 
+  </div>
+  
+<% } else { %>
+  <div class="parentContainer">
     <table>
-        <thead>
-            <th></th>
-            <th></th>
-        </thead>
-        <tbody>
+      <thead>
+        <tr>
+          <th class="top-left">Item</th>
+          <th>Price</th>
+          <th class="top-right">Remove</th> 
+        </tr>
+      </thead>
+      <tbody>
+           
+           <% userCart.cart.forEach(c =>{ %>  
+  
+              <% if(c.itemId.itemName) {%> 
             <tr>
-                <td>Total:</td>
-                <td><% let sum = 0
-                     userCart.cart.forEach(c =>{  
-                      if(c.itemId.isAwarded){
-                        sum += Number(c.itemId.bid)
-                      }else{
-                        sum += Number(c.itemId.price)
-                      }
-                    }) %> 
-                    $<%= sum %> 
-                </td>
+            <td> <%= c.itemId.itemName %>  </td>
+            <td>$ <%= c.itemId.isAwarded ? c.itemId.bid : c.itemId.price %> 
+             
+            <td><form action="/carts/<%= c._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">x</button></form></td>
+            
             </tr>
-        </tbody>
+            <% } %> 
+           <% }) %> 
+          
+          </tbody>
+      </table>
+      </div>
+      <div class="parentContainer">
+        <table>
+          <thead>
+              
+  
+          </thead>
+          <tbody>
+              <tr>
+                  <td>Total:</td>
+                  <td><% let sum = 0
+                       userCart.cart.forEach(c =>{  
+                        if(c.itemId.isAwarded){
+                          sum += Number(c.itemId.bid)
+                        }else{
+                          sum += Number(c.itemId.price)
+                        }
+                      }) %> 
+                      $<%= sum %> 
+                  </td>
+                  <td><a href="/carts/payments/new">Checkout</a></td>
+              </tr>
+          </tbody>
+      </table>
+     
+      
     </table>
-   <a href="/carts/payments/new">Checkout</a>
+      </div>
+  
+<% } %> 
     
-  </table>
+
+
 
 <%- include('../partials/footer') %> 

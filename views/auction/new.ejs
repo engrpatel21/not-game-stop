@@ -1,18 +1,40 @@
 <%- include('../partials/header') %>
-<h1>Bidder: <%= user.name %> </h1>
-<img src="<%= item.picture %> " alt="">
-<h3><%= item.name %> </h3>
 
-<h3>Current Bid: <span id="current-bid"><%= item.bid %> </span> </h3>
-<div class="form-container">
-<form  action="/items/auctions/<%= item._id %>" method="POST">
-    <div class="form-row">
 
-    <label for="currentBid"><h3>Place Bid:</h3></label>
-    <input type="text" class="form-control" id="input-bid" required pattern="\d+\.?\d{0,2}" name="bid">
-    </div>
-    <button id="input-button" class="btn btn-primary btn" type="submit">Place Bid</button>
-</form>
+<div class="row mb-4">
+  <div class="container">
+      <div class="col-lg-12 .parentContainer">
+          <div class="card mt-4">
+              <div class="card" >
+                  <div class="row no-gutters">
+                      <div class="col-lg-5">
+                          <img class="card-img" src="<%= item.picture %> " style="height: 100%" alt="Image of Video Game Stuff">
+                      </div>
+                      <div class="col-lg-7">
+                          <div class="card-body">
+                          <h5 class="card-title"></h5>
+                          <p class="card-text"> <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Name: <%= item.itemName %>  </li>
+                          <li class="list-group-item">Buy Out Price: $<%= item.price %>  </li>
+                          <li class="list-group-item">Current Bid: $<span id="current-bid"><%= item.bid %> </span></li>
+                          <li class="list-group-item">  
+                            <form  action="/items/auctions/<%= item._id %>" method="POST">
+                              <div class="form-row">
+                          
+                              <label for="currentBid"><h3>Place Bid:</h3></label>
+                              <input type="text" class="form-control mb-2" id="input-bid" required pattern="\d+\.?\d{0,2}" name="bid">
+                              </div>
+                              <button id="input-button" class="btn btn-primary btn" type="submit">Place Bid</button>
+                          </form>
+                             </li>  
+                          </ul></p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 <script>
 const currentBid = document.querySelector('#current-bid')
