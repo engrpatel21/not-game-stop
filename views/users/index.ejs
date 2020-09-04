@@ -169,7 +169,7 @@
               <% if(i.bidderId) {%> 
               <% if(user._id.equals(i.bidderId._id)){%> 
                 <tr>
-                    <td><%= i.bidderId.name %> </td>
+                    <td><%= i.itemName%> </td>
                    <td>$<%= i.bid %> </td>
                   <td>
               <form action="/carts/<%= user._id%>/auction" method="POST">
