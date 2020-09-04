@@ -12,10 +12,25 @@ html {
   
 }
 
+td, th{
+  border: 2px solid #fff; 
+  padding: 0.5rem;
+  text-align: center;
+}
+th{
+  background-color: grey;
+}
+td{
+  background-color: grey;
+}
+table{
+  border: 2px solid #fff;
+}
 body {
-  background-color: white;
+  background-color: #030303;
   font-family: 'Lato',sans-serif;
   margin: 0;
+  color: black;
 }
 nav{
   margin-top: 0px;
@@ -84,9 +99,11 @@ img{
   width: 100%;
 }
 
-#row1{
-  width: 1000px;
+#button-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   margin: 0 auto;
+  width: 50%;
 }
 
 .parentContainer {

@@ -26,6 +26,13 @@ const messagesSchema = new Schema({
   from: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
+const reviewsSchema = new Schema({
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+  review: String
+}, {
+  timestamps: true
+})
+
 const userSchema = new Schema({
   name: String,
   email: String,
@@ -36,8 +43,9 @@ const userSchema = new Schema({
   purchaseHistory: [purchaseHistory],
   paymentHistory: [paymentHistory],
   messages: [messagesSchema],
+  reviews: [reviewsSchema],
   state: String,
-  
+  bio: String,
 }, {
   timestamps: true
 });

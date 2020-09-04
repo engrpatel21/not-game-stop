@@ -1,4 +1,5 @@
 const SellerReview = require('../models/seller-review')
+const User = require('../models/user')
 
 module.exports = {
     createSellerReview,
@@ -7,11 +8,13 @@ module.exports = {
 
 function createSellerReview(req, res) {
     req.body.createdBy = req.user._id
-    req.body.createdFor = req.params.id
+    User.findById(req.params.id)
+        .then(user => {
+            user.reviews.push(req.body)
+            user.save().then(() => {
+                res.redirect(`/users/${req.params.id}`)
+            })
+        })
  
-    SellerReview.create(req.body)
-        .then(() => {
-        res.redirect(`/users/${req.params.id}`)
-    })
 }
 

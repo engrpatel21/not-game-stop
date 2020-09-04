@@ -1,148 +1,155 @@
 <%- include('../partials/header') %> 
-
+<h3> <%= user.name %> </h3>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href="/users">Profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Reviews</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Sales Dasboard</a>
+  </li>
+</ul>
 <h3>
-  Name: <%= user.name %> 
+
 </h3>
 
 
 
 <% if(user.isSeller) {%>
-  <h2>Items for Sale:</h2>
+  <div class="parentContainer">
+    <h2>Items You Are Selling:</h2>
+  </div>
+  <div class="parentContainer">
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Time Left</th>
+          <th>Highest Bid</th>
+          <th>Highest Bidder</th>
+          <th></th> 
+        </tr>
+      </thead>
+        <tbody  >
+          
+          <% items.forEach(i =>{ %>
+            
+           
+  
+            <% if(i.seller._id.equals(user._id)) {%>
+              <% let indexTimeDiff = (Date.now() - i.auctionStart.getTime())/(3600000)  %> 
+              <% auctionTime = 5 - indexTimeDiff %> 
+              <% let indexHr = Math.floor(auctionTime) %> 
+              <% let indexMin = (auctionTime - Math.floor(auctionTime))*60 %>
+           
+  
+              <tr>
+                <td><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
+                <td>$<%= i.price %> </td>
+            
+                <td class='item-print'>
+                  <% if (i.isAuction) { %>
+                    <% if(indexHr < 0){ %> 
+                      Auction Over!
+                    <% }else{ %>
+                      <%= indexHr %>H
+                      <% if (indexMin <10){%>
+                        0<%= Math.floor(indexMin) %>M
+                      <% } else { %>
+                        <%= Math.floor(indexMin) %>M
+                      <% } %> 
+                    <% } %>  
+                  <% }else{%>
+                    Buy Out
+                  <% } %> 
+                
+               
+                                  
+                </td>
+                <td>$<%= i.bid > 0 ? i.bid : 'No Bid'%> </td>
+                <% if(i.bidderId) {%> 
+                <td><%= i.bidderId.name %> </td>
+                <% }else{ %>
+                  <td></td>
+                <% } %> 
+                <% if (i.isAuction) { %>
+                <% if(indexHr < 0) {%>
+                  <td>
+                    <% if(i.isAwarded) {%>
+                      Message Sent
+                    <% } else {%>   
+                    <form action="/messages/<%= i._id %>" method="POST">
+                    <% if(i.bidderId) {%> 
+                    <input type="text" name="bidderId" value="<%= i.bidderId._id %>" hidden>  
+                    
+                    <input type="text" name="isAwarded" value='true' hidden>
+                    <button class="btn btn-primary btn-sm" type="submit">Message Winner</button>
+                    <% } %>  
+                    </form>
+                    <% } %>
+                </td>
+                <% } else { %>
+                  <td><a href="/items/auction/<%= i._id %>"><button class="btn btn-primary btn-sm" type="submit">Auction Details</button></a></td>
+                <% } %>  
+                <% }else{ %>
+                  <td></td>
+                <% } %> 
+                
+                <td><a href="/items/<%= i._id %>/edit/game"><button class="btn btn-success btn-sm" type="submit">Edit Posting</button></a></td>
+                <td><form action="/items/<%= i._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">Remove</button></form></td>
+              </tr>
+              
+            <% } %>  
+          <% }) %> 
+          
+        </tbody>
+    </table>
+  </div>
+ 
+
+
   <table>
     <thead>
-      <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Time Left</th>
-        <th>Highest Bid</th>
-        <th>Highest Bidder</th>
-        <th></th> 
-      </tr>
-    </thead>
-      <tbody  >
-        
-        <% items.forEach(i =>{ %>
-          
-         
-
-          <% if(i.seller._id.equals(user._id)) {%>
-            <% let indexTimeDiff = (Date.now() - i.auctionStart.getTime())/(3600000)  %> 
-            <% auctionTime = 5 - indexTimeDiff %> 
-            <% let indexHr = Math.floor(auctionTime) %> 
-            <% let indexMin = (auctionTime - Math.floor(auctionTime))*60 %>
-         
-
-            <tr>
-              <td><a href="/items/<%= i._id %> "><%= i.itemName %></a></h4></td>
-              <td>$<%= i.price %> </td>
-          
-              <td class='item-print'>
-                <% if (i.isAuction) { %>
-                  <% if(indexHr < 0){ %> 
-                    Auction Over!
-                  <% }else{ %>
-                    <%= indexHr %>H
-                    <% if (indexMin <10){%>
-                      0<%= Math.floor(indexMin) %>M
-                    <% } else { %>
-                      <%= Math.floor(indexMin) %>M
-                    <% } %> 
-                  <% } %>  
-                <% }else{%>
-                  Buy Out
-                <% } %> 
-              
-             
-                                
-              </td>
-              <td>$<%= i.bid > 0 ? i.bid : 'No Bid'%> </td>
-              <% if(i.bidderId) {%> 
-              <td><%= i.bidderId.name %> </td>
-              <% }else{ %>
-                <td></td>
-              <% } %> 
-              <% if (i.isAuction) { %>
-              <% if(indexHr < 0) {%>
-                <td>
-                  <% if(i.isAwarded) {%>
-                    Message Sent
-                  <% } else {%>   
-                  <form action="/messages/<%= i._id %>" method="POST">
-                  <% if(i.bidderId) {%> 
-                  <input type="text" name="bidderId" value="<%= i.bidderId._id %>" hidden>  
-                  
-                  <input type="text" name="isAwarded" value='true' hidden>
-                  <button class="btn btn-primary btn-sm" type="submit">Message Winner</button>
-                  <% } %>  
-                  </form>
-                  <% } %>
-              </td>
-              <% } else { %>
-                <td><a href="/items/auction/<%= i._id %>"><button class="btn btn-primary btn-sm" type="submit">Auction Details</button></a></td>
-              <% } %>  
-              <% }else{ %>
-                <td></td>
-              <% } %> 
-              
-              <td><a href="/items/<%= i._id %>/edit/game"><button class="btn btn-success btn-sm" type="submit">Edit Posting</button></a></td>
-              <td><form action="/items/<%= i._id %>?_method=DELETE" method="POST"><button class="btn btn-danger btn-sm" type="submit">Remove</button></form></td>
-            </tr>
-            
-          <% } %>  
-        <% }) %> 
-        
-      </tbody>
-    </table>
-
-
-
   <h4>Your Bids</h4>
-  <% items.forEach(i=>{%>
-    <% if(i.isAwarded && user._id.equals(i.bidderId._id)){%> 
-      <% let cartCheck = false%> 
-    
-      
-    
-      <% if(user.cart.length > 0) {
- 
-        user.cart.forEach(c =>{
-        
-          if(c.itemId.equals(i._id)) {cartCheck = true}
-          else{
-            cartCheck = false
-          }
-        })
-      }%> 
-      <table>
-        <thead>
           <tr>
             <th>Item</th>
             <th>Bid</th>
           </tr>
         </thead>
         <tbody>
-          <td><%= i.itemName %> </td>
-          <td>$<%= i.bid %> </td>
-          <td>
+          <% items.forEach(i=>{%>
+            <% if(i.isAwarded && user._id.equals(i.bidderId._id)){%> 
+              <tr>
+                 <td><%= i.itemName %> </td>
+                 <td>$<%= i.bid %> </td>
+                <td>
             <form action="/carts/<%= user._id%>/auction" method="POST">
-  
               <input type="text" name="itemId" value="<%= i._id %>" hidden>
-              <% if(!(user._id.equals(i.seller._id))) {%> 
-                <% if(!cartCheck){ %> 
-                   <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
-                <% } else {%>
-                  
+           
+              <% if(!(user._id.equals(i.seller._id))) {%>
+                <% if(!user.cart.find(c => c.itemId.equals(i._id))){ %> 
+                  <button class="btn btn-primary btn-sm" type="submit">Add to Cart</button>
+               <% } else {%>
                 <% } %>  
-              <% } %> 
-            </form>
+                <% } %> 
+                
+              </form>
 
-          </td>
+            </td>
+            </tr>
+          <% } %> 
+          <% }) %>  
         </tbody>
       </table>
-    <% } %> 
-  <% }) %>  
+   <%= user.cart %> 
        
   <h3>Seller Reviews:</h3> 
+  
+  <%=user.reviews %>
+  
   <% reviews.forEach(r => {%>
     <h4><%= r.review %> by <%= r.createdBy.name %> </h4>
   <% }) %>  

@@ -5,6 +5,8 @@ const Schema = mongoose.Schema
 const itemReviewsSchema = new Schema({
   createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
   review: String
+}, {
+  timestamps: true
 })
 
 const itemSchema = new Schema({

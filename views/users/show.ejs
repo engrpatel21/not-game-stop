@@ -1,17 +1,12 @@
 <%- include('../partials/header') %>
-    <h1><%= seller.name %>'s Profile </h1>
+  
     <h2>Selling:</h2>
-   
-    <% items.forEach(i =>{ %>
-        <% if(i.seller._id.equals(seller._id)) {%>
-          <h4><a href="/items/<%= i._id %>"><%= i.itemName %></a></h4> 
-        <% } %>  
-      <% }) %> 
+    <%= seller.name %> 
+  
       <h2>Seller Reviews:</h2>
-     <% reviews.forEach(r =>{ %>
-        <% if(r.createdFor._id.equals(seller._id)) %>
-        <h4><%= r.review %> by <%= r.createdBy.name %> </h4> 
-     <% }) %>  
+          <%seller.reviews.forEach( r =>{ %>
+            <li><%= r.review %> by <%= r.createdBy.name%> </li>
+          <% }) %>  
       <div class="form-container">
       <form method="POST" action="/users/<%= seller._id %> ">
         <div class="form-group">

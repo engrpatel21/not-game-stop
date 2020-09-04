@@ -1,44 +1,39 @@
 const User = require('../models/user');
 const Item = require('../models/item');
-const SellerReview = require('../models/seller-review')
+const SellerReview = require('../models/seller-review');
+const item = require('../models/item');
 
 module.exports = {
-  index,
+  userProfile,
   show,
-  test
+  updateBio
 };
 
-function test(req,res){
-  res.render('items/test',{
-    user: req.user ? req.user : null
-  })
-}
-
-
-function show(req,res){
-  User.findById(req.params.id, (err, seller) => {
-    Item.find({})
-      .populate('seller')
-      .populate('auction.bidderId')
-      .exec((err, items) => {
-        SellerReview.find({})
-          .populate('createdBy')
-          .populate('createdFor')
-          .exec((err, reviews) => {
-            res.render('users/show', {
-              title: 'User Profile',
-              user: req.user ? req.user : null,
-              seller,
-              items,
-              reviews
-            })
-          })       
-     
+function updateBio(req, res) {
+  User.findById(req.params.id)
+    .then(user => {
+      user.bio = req.body.bio
+      user.save().then(() => {
+        res.redirect('/users')
       })
   })
 }
 
-function index(req, res) {
+function show(req,res){
+  User.findById(req.params.id)
+    .populate('reviews.createdBy')
+    .exec((err, seller) => {
+      console.log(seller)
+      res.render('users/show', {
+        title: 'User Profile',
+        user: req.user ? req.user : null,
+        seller
+      })
+    })
+
+}
+
+function userProfile(req, res) {
 
   Item.find({})
     .populate('seller')
@@ -48,7 +43,7 @@ function index(req, res) {
         .populate('createdFor')
         .populate('createdBy')
         .exec((err, reviews) => {
-          res.render('users/index', {
+          res.render('users/user-profile', {
             title: 'Profile',
             user: req.user ? req.user : null,
             items,
