@@ -12,6 +12,7 @@ This is an ecommerce site specifically for gamers. Gamers can post their games f
 ![Imgur](https://i.imgur.com/94xCIxs.png)
 
 ## Planning 
+### Link to [Trello](https://trello.com/b/dtSV2VKk/not-game-stop)
 ### ERD
 ![Imgur](https://i.imgur.com/hHTKO3G.png)
 
@@ -42,7 +43,7 @@ The technologies used in the Project
 * Heroku for Deployment
 
 ## Getting Started
-Link to Site: [Not-Game-Stop](https://not-game-stop.herokuapp.com/)
+Link to [Not-Game-Stop](https://not-game-stop.herokuapp.com/)
 
 How it works: 
 A user can browse the products on the page but must be logged in to purchase. They can log in with google account. Once logged in they are able to purchase products and post products for sale. They can leave reviews on sellers pages and leave reviews for products. They can also particiapte in auctions posted by users. User with the highest bid after a time period can be awarded the product by the seller. If the product is not claimed the seller can restart the aution. 
